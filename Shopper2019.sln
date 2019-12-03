@@ -20,8 +20,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shopper2019.DigitRecognizer
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shopper2019.CurrencyRate", "Shopper2019.CurrencyRate\Shopper2019.CurrencyRate.csproj", "{A6C0FC27-532D-4013-B503-D7885CE3779C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shopper2019.Test", "Shopper2019.Test\Shopper2019.Test.csproj", "{5173CD81-CD97-40CD-B32C-335196D11B6E}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -52,10 +50,6 @@ Global
 		{A6C0FC27-532D-4013-B503-D7885CE3779C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A6C0FC27-532D-4013-B503-D7885CE3779C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A6C0FC27-532D-4013-B503-D7885CE3779C}.Release|Any CPU.Build.0 = Release|Any CPU
-		{5173CD81-CD97-40CD-B32C-335196D11B6E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{5173CD81-CD97-40CD-B32C-335196D11B6E}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{5173CD81-CD97-40CD-B32C-335196D11B6E}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{5173CD81-CD97-40CD-B32C-335196D11B6E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
