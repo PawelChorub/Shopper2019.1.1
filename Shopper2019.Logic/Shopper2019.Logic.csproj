@@ -9,9 +9,10 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Shopper2019.Logic</RootNamespace>
     <AssemblyName>Shopper2019.Logic</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -70,7 +71,6 @@
     <Compile Include="Processors\SaleItemProcessors\ISaleListItemProcessor.cs" />
     <Compile Include="Processors\CRUD\SaveToMsSql\SaveToStockProcessor.cs" />
     <Compile Include="Processors\StockItemProcessors\IStockItemProcessor.cs" />
-    <Compile Include="Processors\ITotalPriceValueProcessor.cs" />
     <Compile Include="Processors\IVatTaxRateProcessor.cs" />
     <Compile Include="Processors\SaleItemProcessors\SaleItemProcessor.cs" />
     <Compile Include="Processors\SaleItemProcessors\SaleListItemProcessor.cs" />
