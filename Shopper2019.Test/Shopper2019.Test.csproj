@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.2</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Shopper2019.CurrencyRate\Shopper2019.CurrencyRate.csproj" />
+    <ProjectReference Include="..\Shopper2019.DigitRecognizer\Shopper2019.DigitRecognizer.csproj" />
+    <ProjectReference Include="..\Shopper2019.Documents\Shopper2019.Documents.csproj" />
+    <ProjectReference Include="..\Shopper2019.Library\Shopper2019.Library.csproj" />
+    <ProjectReference Include="..\Shopper2019.Logic\Shopper2019.Logic.csproj" />
+    <ProjectReference Include="..\Shopper2019.UI\Shopper2019.UI.csproj" />
+  </ItemGroup>
+
+</Project>
