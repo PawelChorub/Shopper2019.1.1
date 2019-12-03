@@ -18,7 +18,10 @@ namespace Shopper2019.Logic.Processors
         }
         public void AddItemToSaleList(ISaleItem item)
         {
-            SaleItemList.Add(item);
+            if (item != null)
+            {
+                SaleItemList.Add(item);
+            }
         }
 
         public void DeleteSaleItemFromListByIndex(int index)

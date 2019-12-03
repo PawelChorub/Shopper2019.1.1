@@ -11,18 +11,26 @@ namespace Shopper2019.Logic.Processors
     {
         public ISaleItem SetValuesToSaleItem(string code, string name, decimal quantity, string unitOfMeasure, decimal netPrice, int vatTaxValue, decimal grossPrice) // dane z bazy i ui
         {
-            ISaleItem saleItem = Factory.CreateSaleItem();
+            if (code != "" && name != "" && quantity > 0)
+            {
+                ISaleItem saleItem = Factory.CreateSaleItem();
 
-            saleItem.Code = code;
-            saleItem.Name = name;
-            saleItem.SaleQuantity = quantity;
-            saleItem.VatValue = vatTaxValue;
-            saleItem.UnitOfMeasurements = unitOfMeasure;
-            saleItem.Net_Price = netPrice;
-            saleItem.Gross_Price = grossPrice;
+                saleItem.Code = code;
+                saleItem.Name = name;
+                saleItem.SaleQuantity = quantity;
+                saleItem.VatValue = vatTaxValue;
+                saleItem.UnitOfMeasurements = unitOfMeasure;
+                saleItem.Net_Price = netPrice;
+                saleItem.Gross_Price = grossPrice;
 
-            saleItem.TotalGross_Price = TotalPriceValueProcessor.CalculateTotalPriceValue(saleItem.SaleQuantity, saleItem.Gross_Price);
-            return saleItem;
+                saleItem.TotalGross_Price = TotalPriceValueProcessor.CalculateTotalPriceValue(saleItem.SaleQuantity, saleItem.Gross_Price);
+
+                return saleItem;
+            }
+            else
+            {
+                return null;
+            }
         }
     }
 }

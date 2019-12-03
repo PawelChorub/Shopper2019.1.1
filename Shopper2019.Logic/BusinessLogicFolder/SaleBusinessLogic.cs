@@ -22,7 +22,10 @@ namespace Shopper2019.Logic.BusinessLogicFolder
         }
         public void SendValuesToSaleListItemProcessor(ISaleItem _saleItem)
         {
-            slip.AddItemToSaleList(sip.SetValuesToSaleItem(_saleItem.Code, _saleItem.Name, _saleItem.SaleQuantity,_saleItem.UnitOfMeasurements, _saleItem.Net_Price, _saleItem.VatValue, _saleItem.Gross_Price));
+            if (_saleItem != null)
+            {
+                slip.AddItemToSaleList(sip.SetValuesToSaleItem(_saleItem.Code, _saleItem.Name, _saleItem.SaleQuantity, _saleItem.UnitOfMeasurements, _saleItem.Net_Price, _saleItem.VatValue, _saleItem.Gross_Price));
+            }
         }
         public List<ISaleItem> ReturnSaleItemList()
         {

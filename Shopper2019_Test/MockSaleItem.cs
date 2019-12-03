@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Shopper2019.Test
 {
-    class MockSaleItem : ISaleItem
+    public class MockSaleItem : ISaleItem
     {
         public string Code { get; set; }
         public string Name { get; set; }
@@ -18,6 +18,10 @@ namespace Shopper2019.Test
         public int VatValue { get; set; }
         public string UnitOfMeasurements { get; set; }
 
+        public MockSaleItem()
+        {
+
+        }
         public MockSaleItem(string code, string name, decimal saleQuantity, decimal net_Price, 
             decimal gross_Price, decimal totalGrossPrice, int vatValue, string unitOfMeasurement)
         {
