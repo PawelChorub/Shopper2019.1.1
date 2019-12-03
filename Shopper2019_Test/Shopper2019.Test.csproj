@@ -84,6 +84,7 @@
   <ItemGroup>
     <Compile Include="GrossPriceProcessor_Test.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TotalPriceValueProcessor_Test.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Shopper2019.CurrencyRate\Shopper2019.CurrencyRate.csproj">

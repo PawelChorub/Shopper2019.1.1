@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Shopper2019.Logic.Processors
 {
-    public static class TotalPriceValueProcessor // klasa static nie implementuje interfejsu, static!
+    public static class TotalPriceValueProcessor
     {
         // obliczanie wartości na podstawie ilość * podana wartość ( netto lub brutto )
         public static decimal CalculateTotalPriceValue(decimal quantity, decimal price)
