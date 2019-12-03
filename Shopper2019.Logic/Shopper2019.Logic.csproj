@@ -71,7 +71,6 @@
     <Compile Include="Processors\SaleItemProcessors\ISaleListItemProcessor.cs" />
     <Compile Include="Processors\CRUD\SaveToMsSql\SaveToStockProcessor.cs" />
     <Compile Include="Processors\StockItemProcessors\IStockItemProcessor.cs" />
-    <Compile Include="Processors\ITotalPriceValueProcessor.cs" />
     <Compile Include="Processors\IVatTaxRateProcessor.cs" />
     <Compile Include="Processors\SaleItemProcessors\SaleItemProcessor.cs" />
     <Compile Include="Processors\SaleItemProcessors\SaleListItemProcessor.cs" />
