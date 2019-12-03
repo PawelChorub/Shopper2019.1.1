@@ -1,0 +1,96 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{B7DFEDB3-6CEB-4B73-8852-A5FE44130F13}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Shopper2019.Logic</RootNamespace>
+    <AssemblyName>Shopper2019.Logic</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="BusinessLogic.cs" />
+    <Compile Include="BusinessLogicFolder\ISaleBusinessLogic.cs" />
+    <Compile Include="BusinessLogicFolder\IStockBusinessLogic.cs" />
+    <Compile Include="BusinessLogicFolder\SaleBusinessLogic.cs" />
+    <Compile Include="BusinessLogicFolder\StockBusinessLogic.cs" />
+    <Compile Include="DependencyContainer.cs" />
+    <Compile Include="Factory.cs" />
+    <Compile Include="IBusinessLogic.cs" />
+    <Compile Include="Models\IMeasurementsSort.cs" />
+    <Compile Include="Models\ISaleItem.cs" />
+    <Compile Include="Models\ISaleItemListModel.cs" />
+    <Compile Include="Models\IStockItemListModel.cs" />
+    <Compile Include="Models\SaleItem.cs" />
+    <Compile Include="Models\SaleItemListModel.cs" />
+    <Compile Include="Models\StockItemListModel.cs" />
+    <Compile Include="Processors\GrossPriceProcessor.cs" />
+    <Compile Include="Models\IStockItem.cs" />
+    <Compile Include="Models\IVatTaxRate.cs" />
+    <Compile Include="Models\StockItem.cs" />
+    <Compile Include="Processors\CRUD\ReadFromMsSql\IReadFromStockProcessor.cs" />
+    <Compile Include="Processors\SaleItemProcessors\ISaleListViewItemProcessor.cs" />
+    <Compile Include="Processors\SaleItemProcessors\SaleListViewItemProcessor.cs" />
+    <Compile Include="Processors\CRUD\SaveToMsSql\ISaveToStockProcessor.cs" />
+    <Compile Include="Processors\CRUD\ReadFromMsSql\ReadFromStockProcessor.cs" />
+    <Compile Include="Processors\SaleItemProcessors\ISaleItemProcessor.cs" />
+    <Compile Include="Processors\SaleItemProcessors\ISaleListItemProcessor.cs" />
+    <Compile Include="Processors\CRUD\SaveToMsSql\SaveToStockProcessor.cs" />
+    <Compile Include="Processors\StockItemProcessors\IStockItemProcessor.cs" />
+    <Compile Include="Processors\ITotalPriceValueProcessor.cs" />
+    <Compile Include="Processors\IVatTaxRateProcessor.cs" />
+    <Compile Include="Processors\SaleItemProcessors\SaleItemProcessor.cs" />
+    <Compile Include="Processors\SaleItemProcessors\SaleListItemProcessor.cs" />
+    <Compile Include="Processors\StockItemProcessors\IStockListItemProcessor.cs" />
+    <Compile Include="Processors\StockItemProcessors\IStockListViewItemProcessor.cs" />
+    <Compile Include="Processors\StockItemProcessors\StockItemProcessor.cs" />
+    <Compile Include="Processors\StockItemProcessors\StockListItemProcessor.cs" />
+    <Compile Include="Processors\StockItemProcessors\StockListViewItemProcessor.cs" />
+    <Compile Include="Processors\TotalPriceValueProcessor.cs" />
+    <Compile Include="Processors\CRUD\UpdateInMsSql\IUpdateStockItemProcessor.cs" />
+    <Compile Include="Processors\CRUD\UpdateInMsSql\UpdateStockItemProcessor.cs" />
+    <Compile Include="Processors\VatTaxRateProcessor.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Shopper2019.Library\Shopper2019.Library.csproj">
+      <Project>{E7F3E2C7-3EE5-400D-9A12-7B7F352B540A}</Project>
+      <Name>Shopper2019.Library</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>
