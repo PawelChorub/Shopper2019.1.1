@@ -1,4 +1,5 @@
-﻿using Shopper2019.Logic.Models;
+﻿using Autofac;
+using Shopper2019.Logic.Models;
 using Shopper2019.Logic.Processors;
 using Shopper2019.Logic.Processors.UpdateInMsSql;
 using System;
@@ -11,71 +12,71 @@ namespace Shopper2019.Logic.BusinessLogicFolder
 {
     public class SaleBusinessLogic : ISaleBusinessLogic
     {
-        private ISaleItemProcessor sip = Factory.CreateSaleItemProcessor();
-        private ISaleListItemProcessor slip = Factory.CreateSaleListItemProcessor();
-        private IReadFromStockProcessor rfs = Factory.CreateReadFromStockProcessor();
-        private IUpdateStockItemProcessor usip = Factory.CreateUpdateStockItemProcessor();
+        IContainer container;
+        private ISaleItemProcessor saleItemProcessor;
+        private ISaleListItemProcessor saleListItemProcessor;
+        private IReadFromStockProcessor readFromStockProcessor;
+        private IUpdateStockItemProcessor updateStockItemProcessor;
+
+        public SaleBusinessLogic()
+        {
+            container = DI_Container.Configure();
+            saleItemProcessor = container.Resolve<ISaleItemProcessor>();
+            saleListItemProcessor = container.Resolve<ISaleListItemProcessor>();
+            readFromStockProcessor = container.Resolve<IReadFromStockProcessor>();
+            updateStockItemProcessor = container.Resolve<IUpdateStockItemProcessor>();
+        }
 
         public void NewSaleItemList()
         {
-            slip.CreateNewSaleList();
+            saleListItemProcessor.CreateNewSaleList();
         }
+
         public void SendValuesToSaleListItemProcessor(ISaleItem _saleItem)
         {
             if (_saleItem != null)
             {
-                slip.AddItemToSaleList(sip.SetValuesToSaleItem(_saleItem.Code, _saleItem.Name, _saleItem.SaleQuantity, _saleItem.UnitOfMeasurements, _saleItem.Net_Price, _saleItem.VatValue, _saleItem.Gross_Price));
+                saleListItemProcessor.AddItemToSaleList(saleItemProcessor.SetValuesToSaleItem(_saleItem.Code, _saleItem.Name, _saleItem.SaleQuantity, _saleItem.UnitOfMeasurements, _saleItem.Net_Price, _saleItem.VatValue, _saleItem.Gross_Price));
             }
         }
+
         public List<ISaleItem> ReturnSaleItemList()
         {
-            return slip.ReturnSaleItemList();
+            return saleListItemProcessor.ReturnSaleItemList();
         }
+
         public ISaleItem ReturnSaleItemFromStock(string code)
         {
-            return rfs.FindItemInStock(code);
+            return readFromStockProcessor.FindItemInStock(code);
         }
 
         public ISaleItem CheckSaleItemExists(string code, string quantity)
         {
             bool success = Decimal.TryParse(quantity, out decimal result);
 
-            if (rfs.CheckExistenceItemInStock(code, result) != null)
+            if (readFromStockProcessor.CheckExistenceItemInStock(code, result) != null)
             {
-                return rfs.CheckExistenceItemInStock(code, result);
+                return readFromStockProcessor.CheckExistenceItemInStock(code, result);
             }
             else
             {
                 return null;
             }
         }
-        //wyrzuć!
-        public bool CheckSaleItemExistsBoolTest(string code, string quantity)
-        {
-            Decimal.TryParse(quantity, out decimal result);
 
-            if (rfs.CheckExistenceItemInStock(code, result) != null)
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-        }
         public void DeleteItemFromSaleItemList(int index)
         {
-            slip.DeleteSaleItemFromListByIndex(index);
+            saleListItemProcessor.DeleteSaleItemFromListByIndex(index);
         }
 
         public void UpdateStockItemQuantityBySaleItemList()
         {
-            usip.UpdateListToDatabase(slip.SaleItemList);
+            updateStockItemProcessor.UpdateListToDatabase(saleListItemProcessor.SaleItemList);
         }
 
         public void UpdateStockItemQuantityByItem(string _code, decimal _quantity)
         {
-            usip.UpdateStockItemQuantity(_code, _quantity);
+            updateStockItemProcessor.UpdateStockItemQuantity(_code, _quantity);
         }
     }
 }
