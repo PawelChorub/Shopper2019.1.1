@@ -1,16 +1,9 @@
-﻿using iTextSharp.text;
-using iTextSharp.text.pdf;
-using Shopper2019.Documents.Models;
+﻿using Shopper2019.Documents.Models;
 using Shopper2019.Logic.Models;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Shopper2019.Documents.View
@@ -35,10 +28,9 @@ namespace Shopper2019.Documents.View
         private SolidBrush drawBrushLightGray = new SolidBrush(Color.LightGray);
         private SolidBrush drawBrushTransparent = new SolidBrush(Color.Transparent);
 
-
-
         //wejście listy rzeczy sprzedanych
         private List<ISaleItem> InvoiceItems = new List<ISaleItem>();
+
         public void InvoiceListData(List<ISaleItem> _list)
         {
             foreach (var item in _list)
@@ -78,22 +70,22 @@ namespace Shopper2019.Documents.View
         private void InvoicePrintingProcessor(System.Drawing.Printing.PrintPageEventArgs e)
         {
             decimal totalAmount = 0;
-                    //podsumowanie w stawkach VAT
-        decimal _taxFreeSummary = 0;
-        decimal _tax5summary = 0;
-        decimal _tax8summary = 0;
-        decimal _tax23summary = 0;
-        decimal _netPrice5summary = 0;
-         decimal _netPrice8summary = 0;
-         decimal _netPrice23summary = 0;
-         decimal _netPriceFreeSummary = 0;
-         decimal _grossPrice5summary = 0;
-         decimal _grossPrice8summary = 0;
-         decimal _grossPrice23summary = 0;
-         decimal _grossPriceFreeSummary = 0;
+            //podsumowanie w stawkach VAT
+            decimal _taxFreeSummary = 0;
+            decimal _tax5summary = 0;
+            decimal _tax8summary = 0;
+            decimal _tax23summary = 0;
+            decimal _netPrice5summary = 0;
+            decimal _netPrice8summary = 0;
+            decimal _netPrice23summary = 0;
+            decimal _netPriceFreeSummary = 0;
+            decimal _grossPrice5summary = 0;
+            decimal _grossPrice8summary = 0;
+            decimal _grossPrice23summary = 0;
+            decimal _grossPriceFreeSummary = 0;
 
-        //----------------------------------------------------------------------
-        void HeaderCreate(string text)
+            //----------------------------------------------------------------------
+            void HeaderCreate(string text)
             {
                 System.Drawing.Image logoImg = System.Drawing.Image.FromFile("c:\\users\\paweł.000\\desktop\\logo.jpg");
                 //String logoText = "LOGO";
@@ -144,8 +136,8 @@ namespace Shopper2019.Documents.View
             }
             void VendorAndBuyerDetailsCreate(IVendor v, IBuyer b)
             {
-                String vendorDetails = v.Name + "\n" +v.PostCode +" " +v.City + "\n" +v.Street + " " +v.StreetNumber + "\n" +v.TaxNumber;
-                String buyerDetails = b.BuyerName + "\n"+ b.BuyerPostCode + " " + b.BuyerCity + "\n" + b.BuyerStreet + " " + b.BuyerStreetNumber + "\n" + b.BuyerTaxNumber;
+                String vendorDetails = v.Name + "\n" + v.PostCode + " " + v.City + "\n" + v.Street + " " + v.StreetNumber + "\n" + v.TaxNumber;
+                String buyerDetails = b.BuyerName + "\n" + b.BuyerPostCode + " " + b.BuyerCity + "\n" + b.BuyerStreet + " " + b.BuyerStreetNumber + "\n" + b.BuyerTaxNumber;
                 System.Drawing.Font drawFont = new System.Drawing.Font("Arial", 12, FontStyle.Regular);
 
                 RectangleF r1 = new RectangleF(15, 215, 380, 80);
@@ -330,7 +322,7 @@ namespace Shopper2019.Documents.View
                     _grossPriceFreeSummary += grossPrice;
                 }
             }
-            void InvoiceSummary(int y, string _totalAmount)//, string n5, string t5, string g5)// string? tax5sum, string tax8sum, string tax23sum, string taxFREEsum)
+            void InvoiceSummary(int y, string _totalAmount)
             {
                 //String inputText = text;
                 System.Drawing.Font drawFont = new System.Drawing.Font("Arial", 10, FontStyle.Regular);
@@ -350,17 +342,10 @@ namespace Shopper2019.Documents.View
                 e.Graphics.DrawString("Podsumowanie według stawek VAT", drawFont, drawBrush, h1, digitFormat);
                 y = y + 20;
 
-                //int iterator = 1;
-
-                //if (_netPrice5summary > 0) iterator++;
-                //if (_netPrice8summary > 0) iterator++;
-                //if (_netPrice23summary > 0) iterator++;
-                //if (_netPriceFreeSummary > 0) iterator++;
-
                 string[] vatPercentLabel = { "5", "8", "23", "zw" };
                 string[] netLabel = { _netPrice5summary.ToString("F"), _netPrice8summary.ToString("F"), _netPrice23summary.ToString("F"), _netPriceFreeSummary.ToString("F") };
                 string[] grossLabel = { _grossPrice5summary.ToString("F"), _grossPrice8summary.ToString("F"), _grossPrice23summary.ToString("F"), _grossPriceFreeSummary.ToString("F") };
-                string[] taxLabel = {_tax5summary.ToString("F"), _tax8summary.ToString("F"), _tax23summary.ToString("F"), _taxFreeSummary.ToString("F") };
+                string[] taxLabel = { _tax5summary.ToString("F"), _tax8summary.ToString("F"), _tax23summary.ToString("F"), _taxFreeSummary.ToString("F") };
                 for (int i = 0; i <= 3; i++)
                 {
                     //--tabela summary
@@ -534,8 +519,6 @@ namespace Shopper2019.Documents.View
         {
             // Rysowanie do wydruku
             InvoicePrintingProcessor(e);
-
-            //Kilka metod - naglowek itd???
         }
 
         private void PrintPreviewDialogInvoice_Load(object sender, EventArgs e)
