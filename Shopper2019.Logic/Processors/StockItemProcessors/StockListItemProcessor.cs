@@ -23,7 +23,7 @@ namespace Shopper2019.Logic.Processors
 
         public StockListItemProcessor()
         {
-            container = Factory.Configure();
+            container = DI_Container.Configure();
             save = container.Resolve<ISaveToStockProcessor>();
         }
         public List<IStockItem> StockItemList { get; set; }
@@ -33,7 +33,7 @@ namespace Shopper2019.Logic.Processors
             StockItemList = new List<IStockItem>();
         }
 
-        public void AddItemToStockListVoid(IStockItem item)
+        public void AddItemToStockList(IStockItem item)
         {
             StockItemList.Add(item);
         }

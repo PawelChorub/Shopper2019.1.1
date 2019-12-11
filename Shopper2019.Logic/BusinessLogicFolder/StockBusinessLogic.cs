@@ -19,19 +19,15 @@ namespace Shopper2019.Logic.BusinessLogicFolder
         private IReadFromStockProcessor readFromStockProcessor;
         private IUpdateStockItemProcessor updateStockItemProcessor;
 
-
-
         public StockBusinessLogic()
         {
-            container = Factory.Configure();
-
+            container = DI_Container.Configure();
             stockItemProcessor = container.Resolve<IStockItemProcessor>();
             stockListItemProcessor = container.Resolve<IStockListItemProcessor>();
             saveToStockProcessor = container.Resolve<ISaveToStockProcessor>();
             readFromStockProcessor = container.Resolve<IReadFromStockProcessor>();
             updateStockItemProcessor = container.Resolve<IUpdateStockItemProcessor>();
         }
-
 
         public void SendValuesToStockListItemProcessor(string code, string name, string quantity, string unitOfMeasurement, string netPrice, string vatTaxValue, string grossPrice)
         {
@@ -40,21 +36,24 @@ namespace Shopper2019.Logic.BusinessLogicFolder
             Int32.TryParse(vatTaxValue, out int tax);
             Int32.TryParse(grossPrice, out int gross);
 
-            stockListItemProcessor.AddItemToStockListVoid(stockItemProcessor.SetValuesToStockItem(code, name, q, unitOfMeasurement, net, tax, gross));
+            stockListItemProcessor.AddItemToStockList(stockItemProcessor.SetValuesToStockItem(code, name, q, unitOfMeasurement, net, tax, gross));
         }
+
         public List<IStockItem> ReturnStockItem_List()
         {
             return stockListItemProcessor.ReturnStockItemList();
         }
+
         public void NewStockItemList()
         {
             stockListItemProcessor.CreateNewList();
         }
+
         public void DeleteStockItemListByIndex(int index)
         {
-
             stockListItemProcessor.DeleteStockItemFromListByIndex(index);
         }
+
         public void EditItemFromListByIndex(int index, string code, string name, string quantity, string unitOfMeasurement, string netPrice, string vatTaxValue, string grossPrice)
         {
             Decimal.TryParse(quantity, out decimal q);
@@ -75,9 +74,9 @@ namespace Shopper2019.Logic.BusinessLogicFolder
         }
         public void SaveStockItemsToSql()
         {
-            //slip.SaveListToDatabase(slip.StockItemList);
             stockListItemProcessor.SaveListToDatabase(stockListItemProcessor.ReturnStockItemList());
         }
+
         public ISaleItem ReturnSaleItemFromStock(string code)
         {
             return readFromStockProcessor.FindItemInStock(code);
@@ -96,6 +95,7 @@ namespace Shopper2019.Logic.BusinessLogicFolder
                 return null;
             }
         }
+
         public void UpdateIncreaseStockItemQuantity(string code, string quantity)
         {
             Decimal.TryParse(quantity, out decimal result);

@@ -1,4 +1,5 @@
 ﻿using Autofac;
+using Shopper2019.Logic.BusinessLogicFolder;
 using Shopper2019.Logic.Models;
 using Shopper2019.Logic.Processors;
 using Shopper2019.Logic.Processors.SaleItemProcessors;
@@ -12,7 +13,7 @@ using System.Threading.Tasks;
 
 namespace Shopper2019.Logic
 {
-    public static class Factory
+    public static class DI_Container
     {      
         public static IContainer Configure()
         {
@@ -30,6 +31,9 @@ namespace Shopper2019.Logic
             builder.RegisterType<SaveToStockProcessor>().As<ISaveToStockProcessor>();
             builder.RegisterType<ReadFromStockProcessor>().As<IReadFromStockProcessor>();
             builder.RegisterType<UpdateStockItemProcessor>().As<IUpdateStockItemProcessor>();
+
+            builder.RegisterType<SaleBusinessLogic>().As<ISaleBusinessLogic>();
+            builder.RegisterType<StockBusinessLogic>().As<IStockBusinessLogic>();
 
             return builder.Build();
         }

@@ -20,22 +20,18 @@ namespace Shopper2019.Logic.BusinessLogicFolder
 
         public SaleBusinessLogic()
         {
-            container = Factory.Configure();
+            container = DI_Container.Configure();
             saleItemProcessor = container.Resolve<ISaleItemProcessor>();
             saleListItemProcessor = container.Resolve<ISaleListItemProcessor>();
             readFromStockProcessor = container.Resolve<IReadFromStockProcessor>();
             updateStockItemProcessor = container.Resolve<IUpdateStockItemProcessor>();
         }
-        //private ISaleItemProcessor sip = Factory.CreateSaleItemProcessor();
-        //private ISaleListItemProcessor slip = Factory.CreateSaleListItemProcessor();
-        //private IReadFromStockProcessor rfs = Factory.CreateReadFromStockProcessor();
-        //private IUpdateStockItemProcessor usip = Factory.CreateUpdateStockItemProcessor();
-
 
         public void NewSaleItemList()
         {
             saleListItemProcessor.CreateNewSaleList();
         }
+
         public void SendValuesToSaleListItemProcessor(ISaleItem _saleItem)
         {
             if (_saleItem != null)
@@ -43,10 +39,12 @@ namespace Shopper2019.Logic.BusinessLogicFolder
                 saleListItemProcessor.AddItemToSaleList(saleItemProcessor.SetValuesToSaleItem(_saleItem.Code, _saleItem.Name, _saleItem.SaleQuantity, _saleItem.UnitOfMeasurements, _saleItem.Net_Price, _saleItem.VatValue, _saleItem.Gross_Price));
             }
         }
+
         public List<ISaleItem> ReturnSaleItemList()
         {
             return saleListItemProcessor.ReturnSaleItemList();
         }
+
         public ISaleItem ReturnSaleItemFromStock(string code)
         {
             return readFromStockProcessor.FindItemInStock(code);
@@ -65,20 +63,7 @@ namespace Shopper2019.Logic.BusinessLogicFolder
                 return null;
             }
         }
-        ////wyrzuć!
-        //public bool CheckSaleItemExistsBoolTest(string code, string quantity)
-        //{
-        //    Decimal.TryParse(quantity, out decimal result);
 
-        //    if (readFromStockProcessor.CheckExistenceItemInStock(code, result) != null)
-        //    {
-        //        return true;
-        //    }
-        //    else
-        //    {
-        //        return false;
-        //    }
-        //}
         public void DeleteItemFromSaleItemList(int index)
         {
             saleListItemProcessor.DeleteSaleItemFromListByIndex(index);

@@ -16,7 +16,7 @@ namespace Shopper2019.Logic.Processors
         ISaleItem item;
         public ReadFromStockProcessor()
         {
-            container = Factory.Configure();
+            container = DI_Container.Configure();
         }
 
         private static SqlConnection sqlConnection = new SqlConnection

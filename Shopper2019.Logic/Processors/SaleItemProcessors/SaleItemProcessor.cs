@@ -14,7 +14,7 @@ namespace Shopper2019.Logic.Processors
         ISaleItem saleItem;
         public SaleItemProcessor()
         {
-            container = Factory.Configure();
+            container = DI_Container.Configure();
         }
         public ISaleItem SetValuesToSaleItem(string code, string name, decimal quantity, string unitOfMeasure, decimal netPrice, int vatTaxValue, decimal grossPrice) // dane z bazy i ui
         {

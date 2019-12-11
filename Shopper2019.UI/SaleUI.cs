@@ -1,9 +1,9 @@
-﻿using Shopper2019.Documents;
+﻿using Autofac;
+using Shopper2019.Documents;
 using Shopper2019.Logic;
 using Shopper2019.Logic.BusinessLogicFolder;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
@@ -15,17 +15,17 @@ namespace Shopper2019.UI
 {
     public partial class SaleUI : Form
     {
+        IContainer container;
+        ISaleBusinessLogic saleBusinessLogic;
+
         public SaleUI()
         {
             InitializeComponent();
-            DependencyInject(BusinessLogicManager.SaleBusinessLogicInject());
-            SaleInit();
-        }
 
-        ISaleBusinessLogic _sbl;
-        private void DependencyInject(ISaleBusinessLogic sbl)
-        {
-            _sbl = sbl;
+            container = DI_Container.Configure();
+            saleBusinessLogic = container.Resolve<ISaleBusinessLogic>();
+
+            SaleInit();
         }
 
         private int index;
@@ -36,7 +36,7 @@ namespace Shopper2019.UI
 
         private void SaleInit()
         {
-            _sbl.NewSaleItemList();
+            saleBusinessLogic.NewSaleItemList();
 
             IsSaleComplete = false;
             IsInvoiceRequired = false;
@@ -62,7 +62,7 @@ namespace Shopper2019.UI
             {
                 saleListView.Items.Clear();
                 int counter = 0;
-                foreach (var item in _sbl.ReturnSaleItemList())
+                foreach (var item in saleBusinessLogic.ReturnSaleItemList())
                 {
                     counter++;
                     ListViewItem i = new ListViewItem(counter.ToString());
@@ -86,11 +86,11 @@ namespace Shopper2019.UI
 
         }
 
-        private string SaleGrossPriceTotalView() // wykorzystać do netto i magazynu w odd klasie?
+        private string SaleGrossPriceTotalView()
         {
             decimal price = 0;
             decimal totalPrice = 0;
-            foreach (var item in _sbl.ReturnSaleItemList())
+            foreach (var item in saleBusinessLogic.ReturnSaleItemList())
             {
                 price = item.TotalGross_Price;
                 totalPrice += price;
@@ -107,11 +107,11 @@ namespace Shopper2019.UI
 
                 saleListView.Items.Clear();
                 //znajdź w bazie
-                _sbl.ReturnSaleItemFromStock(ItemSearchCodeTb.Text);
+                saleBusinessLogic.ReturnSaleItemFromStock(ItemSearchCodeTb.Text);
 
-                if (_sbl.CheckSaleItemExists(ItemSearchCodeTb.Text, ItemSearchQuantityTb.Text) != null)
+                if (saleBusinessLogic.CheckSaleItemExists(ItemSearchCodeTb.Text, ItemSearchQuantityTb.Text) != null)
                 {   // dodaj jeśli nie ma nulla
-                    _sbl.SendValuesToSaleListItemProcessor(_sbl.CheckSaleItemExists(ItemSearchCodeTb.Text, ItemSearchQuantityTb.Text));
+                    saleBusinessLogic.SendValuesToSaleListItemProcessor(saleBusinessLogic.CheckSaleItemExists(ItemSearchCodeTb.Text, ItemSearchQuantityTb.Text));
                     totalGrossPriceLabel.Text = SaleGrossPriceTotalView();
                 }
                 else
@@ -133,7 +133,7 @@ namespace Shopper2019.UI
         {
             try
             {
-                _sbl.DeleteItemFromSaleItemList(index);
+                saleBusinessLogic.DeleteItemFromSaleItemList(index);
                 ViewListOfSaleItem();
                 totalGrossPriceLabel.Text = SaleGrossPriceTotalView();
                 DeleteBtn.Enabled = false;
@@ -184,12 +184,12 @@ namespace Shopper2019.UI
 
         private void SaleCompleteBtn_Click(object sender, EventArgs e)
         {
-            foreach (var item in _sbl.ReturnSaleItemList())
+            foreach (var item in saleBusinessLogic.ReturnSaleItemList())
             {
-                _sbl.ReturnSaleItemFromStock(item.Code); // najpierw stwórz obiekt!
-                if (_sbl.CheckSaleItemExists(item.Code, item.SaleQuantity.ToString()) != null)  // póżniej sprawdz!
+                saleBusinessLogic.ReturnSaleItemFromStock(item.Code); // najpierw stwórz obiekt!
+                if (saleBusinessLogic.CheckSaleItemExists(item.Code, item.SaleQuantity.ToString()) != null)  // póżniej sprawdz!
                 {
-                    _sbl.UpdateStockItemQuantityByItem(item.Code, item.SaleQuantity); // póżniej zredukuj stan w magazynie
+                    saleBusinessLogic.UpdateStockItemQuantityByItem(item.Code, item.SaleQuantity); // póżniej zredukuj stan w magazynie
 
                     IsSaleComplete = true;  // dla ukończenia
                 }
@@ -217,13 +217,13 @@ namespace Shopper2019.UI
 
                     if (IsInvoiceRequired)
                     {
-                        dbl.InvoiceDetailsBuilder(_sbl.ReturnSaleItemList(), BuyerNameTb.Text, BuyerPostCodeTb.Text, BuyerCityTb.Text, BuyerStreetTb.Text, BuyerStreetNumberTb.Text, BuyerTaxNumber.Text);
+                        dbl.InvoiceDetailsBuilder(saleBusinessLogic.ReturnSaleItemList(), BuyerNameTb.Text, BuyerPostCodeTb.Text, BuyerCityTb.Text, BuyerStreetTb.Text, BuyerStreetNumberTb.Text, BuyerTaxNumber.Text);
                     }
                     else
                     {
-                        dbl.ReceiptDetailsBuilder(_sbl.ReturnSaleItemList());
+                        dbl.ReceiptDetailsBuilder(saleBusinessLogic.ReturnSaleItemList());
                     }
-                    _sbl.NewSaleItemList();
+                    saleBusinessLogic.NewSaleItemList();
 
                     SaleInit();
                 }

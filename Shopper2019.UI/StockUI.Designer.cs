@@ -235,7 +235,7 @@
             this.stockListView.TabIndex = 3;
             this.stockListView.UseCompatibleStateImageBehavior = false;
             this.stockListView.View = System.Windows.Forms.View.Details;
-            this.stockListView.SelectedIndexChanged += new System.EventHandler(this.stockListView_SelectedIndexChanged);
+            this.stockListView.SelectedIndexChanged += new System.EventHandler(this.StockListView_SelectedIndexChanged);
             // 
             // unityOfMeasureHdr
             // 

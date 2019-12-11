@@ -15,7 +15,7 @@ namespace Shopper2019.Logic.Processors
 
         public StockItemProcessor()
         {
-            container = Factory.Configure();
+            container = DI_Container.Configure();
         }
         public IStockItem SetValuesToStockItem(string code, string name, decimal quantity, string unitOfMeasurements, decimal netPrice, int vatTaxValue, decimal grossPrice) // grossPrice autoObliczany
         {
