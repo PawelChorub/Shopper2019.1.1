@@ -41,6 +41,7 @@ namespace Shopper2019.Logic.Processors
             try
             {
                 var item = SaleItemList.ElementAt(index);
+
                 item.Code = saleItem.Code;
                 item.Name = saleItem.Name;
                 item.SaleQuantity = saleItem.SaleQuantity;
@@ -69,7 +70,7 @@ namespace Shopper2019.Logic.Processors
         {
             return SaleItemList;
         }
-        // na poaragon może jak nie do do kosza
+
         public string ViewListSaleItem(List<ISaleItem> listName)
         {
             string output = "";

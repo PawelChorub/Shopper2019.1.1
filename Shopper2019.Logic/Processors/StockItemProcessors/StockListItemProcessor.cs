@@ -1,4 +1,5 @@
-﻿using Shopper2019.Logic;
+﻿using Autofac;
+using Shopper2019.Logic;
 using Shopper2019.Logic.Models;
 using Shopper2019.Logic.Processors;
 using Shopper2019.Logic.Processors.StockItemProcessors;
@@ -11,12 +12,16 @@ using System.Windows.Forms;
 
 namespace Shopper2019.Logic.Processors
 {
-    // będzie buforem do:
-    // wrzucenia do sql;
-    // wydruku dokumentu itd...
-
     public class StockListItemProcessor : IStockItemListModel, IStockListItemProcessor
     {
+        IContainer container;
+        ISaveToStockProcessor save;
+
+        public StockListItemProcessor()
+        {
+            container = DI_Container.Configure();
+            save = container.Resolve<ISaveToStockProcessor>();
+        }
         public List<IStockItem> StockItemList { get; set; }
 
         public void CreateNewList()
@@ -24,7 +29,7 @@ namespace Shopper2019.Logic.Processors
             StockItemList = new List<IStockItem>();
         }
 
-        public void AddItemToStockListVoid(IStockItem item)
+        public void AddItemToStockList(IStockItem item)
         {
             StockItemList.Add(item);
         }
@@ -46,6 +51,7 @@ namespace Shopper2019.Logic.Processors
             try
             {
                 var item = StockItemList.ElementAt(index);
+
                 item.Code = stockItem.Code;
                 item.Name = stockItem.Name;
                 item.StockQuantity = stockItem.StockQuantity;
@@ -57,38 +63,26 @@ namespace Shopper2019.Logic.Processors
             catch (Exception)
             {
                 MessageBox.Show("Lista jest pusta!");
-            }               
+            }
         }
 
-    // zwraca liste i tyle.
         public List<IStockItem> ReturnStockItemList()
         {
             return StockItemList;
         }
 
-        //zapsz elementy listy do bazysql
-        ISaveToStockProcessor save = Factory.CreateSaveToStockProcessor();
         public void SaveListToDatabase(List<IStockItem> listName)
-        {                   
-                foreach (var item in listName)
-                {
-                    save.SaveItemToSqlStock(item);
-                }         
+        {
+            foreach (var item in listName)
+            {
+                save.SaveItemToSqlStock(item);
+            }
         }
-        // to nie lista ale sztuka, ale to jest wyżej
-        //public void SaveStockItemToStock(IStockItem item)
-        //{
-        //    save.SaveItemToSqlStock(item);
-        //}
-        //-------------------------------------------------
-        //usuń z listy item po kodzie to sie kiedyś przyda
+
         public void DeleteStockItemFromList(string code)
         {
-            //var toRemove = ListOfCustomers.Where(x => x.FirstName == firstName);
-
             for (int i = 0; i < StockItemList.Count; i++)
             {
-                // if it is List<String>
                 if (StockItemList[i].Code == code)
                 {
                     StockItemList.RemoveAt(i);

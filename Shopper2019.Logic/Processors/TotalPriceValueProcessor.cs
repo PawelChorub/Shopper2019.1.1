@@ -8,7 +8,6 @@ namespace Shopper2019.Logic.Processors
 {
     public static class TotalPriceValueProcessor
     {
-        // obliczanie wartości na podstawie ilość * podana wartość ( netto lub brutto )
         public static decimal CalculateTotalPriceValue(decimal quantity, decimal price)
         {
             return quantity * price;

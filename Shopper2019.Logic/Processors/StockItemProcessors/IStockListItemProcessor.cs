@@ -7,7 +7,7 @@ namespace Shopper2019.Logic.Processors
     {
         List<IStockItem> StockItemList { get; set; }
 
-        void AddItemToStockListVoid(IStockItem item);
+        void AddItemToStockList(IStockItem item);
         void CreateNewList();
         void DeleteStockItemFromList(string code);
         void DeleteStockItemFromListByIndex(int index);

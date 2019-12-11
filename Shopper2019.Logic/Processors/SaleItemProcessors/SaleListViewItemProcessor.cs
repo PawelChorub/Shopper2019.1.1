@@ -14,8 +14,7 @@ namespace Shopper2019.Logic.Processors.SaleItemProcessors
 
         public ListViewItem LoadSaleItemsToSaleListView(ISaleItem saleItem)
         {
-
-            if (saleItem != null)       // zabezpieczenie ilości i istneinia obiektu
+            if (saleItem != null)
             {
                 ListViewItem saleList = new ListViewItem(Counter.ToString());
                 saleList.SubItems.Add(saleItem.Code);

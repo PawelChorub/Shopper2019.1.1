@@ -3,7 +3,6 @@ using Shopper2019.Logic.BusinessLogicFolder;
 using Shopper2019.Logic.Models;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
@@ -11,26 +10,27 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Shopper2019.Documents;
+using Autofac;
 
 namespace Shopper2019.UI
 {
     public partial class StockUI : Form
     {
+        IContainer container;
+        IStockBusinessLogic stockBusinessLogic;
+
         public StockUI()
         {
             InitializeComponent();
-            DependencyInject(DependencyContainer.StockBusinessLogicInject());
-            _bl.NewStockItemList();
+
+            container = DI_Container.Configure();
+            stockBusinessLogic = container.Resolve<IStockBusinessLogic>();
+
+            stockBusinessLogic.NewStockItemList();
         }
 
         private int index;
 
-        IStockBusinessLogic _bl;
-
-        private void DependencyInject(IStockBusinessLogic bl)
-        {
-            _bl = bl;
-        }
         public void ClearTextBoxes()
         {
             indexTb.Text = "";
@@ -68,7 +68,7 @@ namespace Shopper2019.UI
         {
             if ((codeTb.Text != "") && (netPriceTb.Text != "") && (quantityTb.Text!="") && (unitOfMeasurementCbox.SelectedItem != null))
             {
-                _bl.SendValuesToStockListItemProcessor(codeTb.Text, nameTb.Text, quantityTb.Text, /*unitOfMeasurementTb.Text*/ unitOfMeasurementCbox.SelectedItem.ToString(), netPriceTb.Text, vatTaxTb.Text, "");
+                stockBusinessLogic.SendValuesToStockListItemProcessor(codeTb.Text, nameTb.Text, quantityTb.Text, /*unitOfMeasurementTb.Text*/ unitOfMeasurementCbox.SelectedItem.ToString(), netPriceTb.Text, vatTaxTb.Text, "");
                 ViewListOfStockItem();
                 ClearTextBoxes();
                 EditBtn.Enabled = false;
@@ -80,17 +80,7 @@ namespace Shopper2019.UI
             }
         }
 
-        //private void button1_Click(object sender, EventArgs e)
-        //{
-        //    // zapisuje do sql cala liste
-        //    _bl.SaveStockItemsToSql();
-        //    _bl.NewStockItemList();
-        //    listBufferTb.Text = "";
-        //    EditBtn.Enabled = false;
-        //    ClearTextBoxes();
-        //} 
-
-        private void stockListView_SelectedIndexChanged(object sender, EventArgs e)
+        private void StockListView_SelectedIndexChanged(object sender, EventArgs e)
         {
             EditBtn.Enabled = true;
             DeleteBtn.Enabled = true;
@@ -117,15 +107,14 @@ namespace Shopper2019.UI
             }
         }
 
-       // rozkminić wyciągnięcie do klasy tego cuda
         public void ViewListOfStockItem()
         {
             stockListView.Items.Clear();
             int counter = 0;
-            foreach (var item in _bl.ReturnStockItem_List())
+            foreach (var item in stockBusinessLogic.ReturnStockItem_List())
             {
                 counter++;
-                ListViewItem i = new ListViewItem(counter.ToString()); // tutaj dać counter
+                ListViewItem i = new ListViewItem(counter.ToString());
 
                 i.SubItems.Add(item.Code);
                 i.SubItems.Add(item.Name);
@@ -141,7 +130,7 @@ namespace Shopper2019.UI
 
         private void DeleteBtnClick(object sender, EventArgs e)
         {
-            _bl.DeleteStockItemListByIndex(index);
+            stockBusinessLogic.DeleteStockItemListByIndex(index);
             ViewListOfStockItem();
 
             EditBtn.Enabled = false;
@@ -153,7 +142,6 @@ namespace Shopper2019.UI
         }
         private void EditBtn_Click(object sender, EventArgs e)
         {
-            //_bl.EditItemFromListByIndex(index, codeTb.Text, nameTb.Text, quantityTb.Text, unitOfMeasurementTb.Text, netPriceTb.Text, vatTaxTb.Text, "");
             ViewListOfStockItem();
 
             SaveToDbBtn.Enabled = false;
@@ -168,20 +156,20 @@ namespace Shopper2019.UI
         {
             bool complete = false;
 
-            foreach (var item in _bl.ReturnStockItem_List())
+            foreach (var item in stockBusinessLogic.ReturnStockItem_List())
             {
                 // najpierw sprawdż istnienie obiektu!
-                _bl.ReturnSaleItemFromStock(item.Code); // najpierw stwórz obiekt!
-                if (_bl.CheckSaleItemExists(item.Code, item.StockQuantity.ToString()) != null)  // póżniej sprawdz!
+                stockBusinessLogic.ReturnSaleItemFromStock(item.Code); // najpierw stwórz obiekt!
+                if (stockBusinessLogic.CheckSaleItemExists(item.Code, item.StockQuantity.ToString()) != null)  // póżniej sprawdz!
                 {
-                    _bl.UpdateIncreaseStockItemQuantity(item.Code, item.StockQuantity.ToString()); // póżniej zmień stan w magazynie
+                    stockBusinessLogic.UpdateIncreaseStockItemQuantity(item.Code, item.StockQuantity.ToString()); // póżniej zmień stan w magazynie
 
                     logBoxTb.Text += "Przyjęto : Kod : " + item.Code + " Nazwa : " + item.Name + " w ilości :" + item.StockQuantity + "\r\n";
                     complete = true;  // dla zerowania                  
                 }
                 else
                 {                                                           
-                    _bl.SaveToStock(item.Code, item.Name, item.StockQuantity.ToString(), item.UnitOfMeasurements, item.Net_Price.ToString(), item.VatValue.ToString(), "");
+                    stockBusinessLogic.SaveToStock(item.Code, item.Name, item.StockQuantity.ToString(), item.UnitOfMeasurements, item.Net_Price.ToString(), item.VatValue.ToString(), "");
                     logBoxTb.Text += "Przyjęto nowy: Kod : " + item.Code + " Nazwa : " + item.Name + " w ilości :" + item.StockQuantity + "\r\n";
                     complete = true;
                 }
@@ -191,7 +179,7 @@ namespace Shopper2019.UI
             }
             if (complete)
             {
-                _bl.NewStockItemList();
+                stockBusinessLogic.NewStockItemList();
                 stockListView.Items.Clear();
                 ClearTextBoxes();
             }
@@ -217,7 +205,7 @@ namespace Shopper2019.UI
         {
             if (unitOfMeasurementCbox.SelectedItem != null)
             {
-                _bl.EditItemFromListByIndex(index, codeTb.Text, nameTb.Text, quantityTb.Text, /*unitOfMeasurementTb.Text*/unitOfMeasurementCbox.SelectedItem.ToString(), netPriceTb.Text, vatTaxTb.Text, "");
+                stockBusinessLogic.EditItemFromListByIndex(index, codeTb.Text, nameTb.Text, quantityTb.Text, /*unitOfMeasurementTb.Text*/unitOfMeasurementCbox.SelectedItem.ToString(), netPriceTb.Text, vatTaxTb.Text, "");
                 ViewListOfStockItem();
                 EditBtn.Enabled = false;
                 DeleteBtn.Enabled = false;
@@ -227,8 +215,6 @@ namespace Shopper2019.UI
                 SaveToDbBtn.Enabled = true;
                 AddEditChangesBtn.Enabled = false;
             }
-        }
-
-  
+        } 
     }
 }
