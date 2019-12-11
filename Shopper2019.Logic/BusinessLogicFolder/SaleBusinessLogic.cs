@@ -71,12 +71,12 @@ namespace Shopper2019.Logic.BusinessLogicFolder
 
         public void UpdateStockItemQuantityBySaleItemList()
         {
-            updateStockItemProcessor.UpdateListToDatabase(saleListItemProcessor.SaleItemList);
+            updateStockItemProcessor.DecreaseSaleItemListToDatabase(saleListItemProcessor.SaleItemList);
         }
 
         public void UpdateStockItemQuantityByItem(string _code, decimal _quantity)
         {
-            updateStockItemProcessor.UpdateStockItemQuantity(_code, _quantity);
+            updateStockItemProcessor.DecreaseStockItemQuantity(_code, _quantity);
         }
     }
 }

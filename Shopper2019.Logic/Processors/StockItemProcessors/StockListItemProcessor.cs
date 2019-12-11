@@ -12,10 +12,6 @@ using System.Windows.Forms;
 
 namespace Shopper2019.Logic.Processors
 {
-    // będzie buforem do:
-    // wrzucenia do sql;
-    // wydruku dokumentu itd...
-
     public class StockListItemProcessor : IStockItemListModel, IStockListItemProcessor
     {
         IContainer container;
@@ -55,6 +51,7 @@ namespace Shopper2019.Logic.Processors
             try
             {
                 var item = StockItemList.ElementAt(index);
+
                 item.Code = stockItem.Code;
                 item.Name = stockItem.Name;
                 item.StockQuantity = stockItem.StockQuantity;
@@ -66,32 +63,26 @@ namespace Shopper2019.Logic.Processors
             catch (Exception)
             {
                 MessageBox.Show("Lista jest pusta!");
-            }               
+            }
         }
 
-    // zwraca liste i tyle.
         public List<IStockItem> ReturnStockItemList()
         {
             return StockItemList;
         }
 
-        //zapsz elementy listy do bazysql
         public void SaveListToDatabase(List<IStockItem> listName)
-        {                   
-                foreach (var item in listName)
-                {
-                    save.SaveItemToSqlStock(item);
-                }         
+        {
+            foreach (var item in listName)
+            {
+                save.SaveItemToSqlStock(item);
+            }
         }
 
-        //usuń z listy item po kodzie to sie kiedyś przyda
         public void DeleteStockItemFromList(string code)
         {
-            //var toRemove = ListOfCustomers.Where(x => x.FirstName == firstName);
-
             for (int i = 0; i < StockItemList.Count; i++)
             {
-                // if is it List<String>
                 if (StockItemList[i].Code == code)
                 {
                     StockItemList.RemoveAt(i);

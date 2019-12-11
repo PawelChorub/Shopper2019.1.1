@@ -15,8 +15,8 @@ namespace Shopper2019.Logic.Processors.UpdateInMsSql
           ("Server=.\\SQLEXPR;User=sa;Password=12trzy;Database=Shopper2019Db");
         private static SqlCommand sqlCommand;
         private string sqlQuery = "";
-        //decrease
-        public void UpdateStockItemQuantity(string code, decimal quantity)
+
+        public void DecreaseStockItemQuantity(string code, decimal quantity)
         {
             string specifier;
             CultureInfo culture;
@@ -46,14 +46,11 @@ namespace Shopper2019.Logic.Processors.UpdateInMsSql
             sqlConnection.Close();
         }
 
-        //IUpdateStockItemProcessor usip = Factory.CreateUpdateStockItemProcessor();
-        //uaktualnij bufor sprzedazy
-        //decrease
-        public void UpdateListToDatabase(List<ISaleItem> listName)
+        public void DecreaseSaleItemListToDatabase(List<ISaleItem> listName)
         {
             foreach (var item in listName)
             {
-                UpdateStockItemQuantity(item.Code, item.SaleQuantity);
+                DecreaseStockItemQuantity(item.Code, item.SaleQuantity);
             }
         }
 
