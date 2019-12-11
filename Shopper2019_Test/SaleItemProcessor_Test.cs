@@ -1,4 +1,5 @@
-﻿using Shopper2019.Logic.Models;
+﻿using Moq;
+using Shopper2019.Logic.Models;
 using Shopper2019.Logic.Processors;
 using System;
 using System.Collections.Generic;
@@ -41,10 +42,5 @@ namespace Shopper2019.Test
 
             Assert.Null(item);
         }
-
-
-
-
-
     }
 }
