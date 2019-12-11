@@ -1,4 +1,5 @@
-﻿using Shopper2019.Logic.Models;
+﻿using Autofac;
+using Shopper2019.Logic.Models;
 using Shopper2019.Logic.Processors;
 using Shopper2019.Logic.Processors.SaleItemProcessors;
 using Shopper2019.Logic.Processors.StockItemProcessors;
@@ -12,68 +13,25 @@ using System.Threading.Tasks;
 namespace Shopper2019.Logic
 {
     public static class Factory
-    {
-       
-        public static IStockItem CreateStockItem()
+    {      
+        public static IContainer Configure()
         {
-            return new StockItem();
-        }
-                        
-        public static IStockItemProcessor CreateStockItemProcessor()
-        {
-            return new StockItemProcessor();
-        }
+            var builder = new ContainerBuilder();
 
-        public static IStockListItemProcessor CreateStockListItemProcessor()
-        {
-            return new StockListItemProcessor();
-        }
+            builder.RegisterType<StockItem>().As<IStockItem>();
+            builder.RegisterType<StockItemProcessor>().As<IStockItemProcessor>();
+            builder.RegisterType<StockListItemProcessor>().As<IStockListItemProcessor>();
+            builder.RegisterType<StockListViewItemProcessor>().As<IStockListViewItemProcessor>();
+            builder.RegisterType<VatTaxRateProcessor>().As<IVatTaxRateProcessor>();
+            builder.RegisterType<SaleItem>().As<ISaleItem>();
+            builder.RegisterType<SaleItemProcessor>().As<ISaleItemProcessor>();
+            builder.RegisterType<SaleListItemProcessor>().As<ISaleListItemProcessor>();
+            builder.RegisterType<SaleListViewItemProcessor>().As<ISaleListViewItemProcessor>();
+            builder.RegisterType<SaveToStockProcessor>().As<ISaveToStockProcessor>();
+            builder.RegisterType<ReadFromStockProcessor>().As<IReadFromStockProcessor>();
+            builder.RegisterType<UpdateStockItemProcessor>().As<IUpdateStockItemProcessor>();
 
-        public static IStockListViewItemProcessor CreateStockListViewItemProcessor()
-        {
-            return new StockListViewItemProcessor();
-        }
-
-
-        public static IVatTaxRateProcessor SetVatTaxValue()
-        {
-            return new VatTaxRateProcessor();
-        }
-
-
-        public static ISaleItem CreateSaleItem()
-        {
-            return new SaleItem();
-        }
-
-        public static ISaleItemProcessor CreateSaleItemProcessor()
-        {
-            return new SaleItemProcessor();
-        }
-
-        public static ISaleListItemProcessor CreateSaleListItemProcessor()
-        {
-            return new SaleListItemProcessor();
-        }
-
-        public static ISaleListViewItemProcessor CreateSaleListViewItemProcessor()
-        {
-            return new SaleListViewItemProcessor();
-        }
-
-        public static ISaveToStockProcessor CreateSaveToStockProcessor()
-        {
-            return new SaveToStockProcessor();
-        }
-
-        public static IReadFromStockProcessor CreateReadFromStockProcessor()
-        {
-            return new ReadFromStockProcessor();
-        }
-
-        public static IUpdateStockItemProcessor CreateUpdateStockItemProcessor()
-        {
-            return new UpdateStockItemProcessor();
+            return builder.Build();
         }
     }
 }

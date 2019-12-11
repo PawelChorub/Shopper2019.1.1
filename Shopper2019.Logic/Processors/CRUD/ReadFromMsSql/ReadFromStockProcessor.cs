@@ -1,4 +1,5 @@
-﻿using Shopper2019.Logic.Models;
+﻿using Autofac;
+using Shopper2019.Logic.Models;
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
@@ -11,23 +12,27 @@ namespace Shopper2019.Logic.Processors
 {
     public class ReadFromStockProcessor : IReadFromStockProcessor
     {
-        // wyszukac ko i ilosc z saleitem
-        // odczyt z table
-        // porownanie stanu
-        // wyslanie do saleitemlist
+        IContainer container;
+        ISaleItem item;
+        public ReadFromStockProcessor()
+        {
+            container = Factory.Configure();
+        }
+
         private static SqlConnection sqlConnection = new SqlConnection
                         ("Server=.\\SQLEXPR;User=sa;Password=12trzy;Database=Shopper2019Db");
         private static SqlCommand sqlCommand;
         private string sqlQuery = "";
         private static SqlDataReader reader;
 
-        ISaleItem item;
 
         public ISaleItem FindItemInStock (string itemCode)
         {
 
             //ISaleItem item = Factory.CreateSaleItem();
-            item = Factory.CreateSaleItem();
+            //item = Factory.CreateSaleItem();
+            item = container.Resolve<ISaleItem>();
+
 
             sqlConnection.Open();
             sqlQuery = string.Format("select * from Shopper2019StockTable WHERE code = '{0}'", itemCode);
@@ -56,11 +61,9 @@ namespace Shopper2019.Logic.Processors
         }
         public ISaleItem CheckExistenceItemInStock(string searchCode, decimal searchQuantity)
         {
-            // zwróć item jeśli ilość będzie się zgadzała!
-
             if (searchCode == item.Code && item.SaleQuantity >= searchQuantity && searchQuantity > 0)
             {
-                item.SaleQuantity = searchQuantity; // przypisz ilość pożądaną i szukaną
+                item.SaleQuantity = searchQuantity;
                 return item;
             }
                 

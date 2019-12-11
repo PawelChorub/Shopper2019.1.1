@@ -18,7 +18,7 @@ namespace Shopper2019.UI
         public SaleUI()
         {
             InitializeComponent();
-            DependencyInject(DependencyContainer.SaleBusinessLogicInject());
+            DependencyInject(BusinessLogicManager.SaleBusinessLogicInject());
             SaleInit();
         }
 

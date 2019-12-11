@@ -19,7 +19,7 @@ namespace Shopper2019.UI
         public StockUI()
         {
             InitializeComponent();
-            DependencyInject(DependencyContainer.StockBusinessLogicInject());
+            DependencyInject(BusinessLogicManager.StockBusinessLogicInject());
             _bl.NewStockItemList();
         }
 

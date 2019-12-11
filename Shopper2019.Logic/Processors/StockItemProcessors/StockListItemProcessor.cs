@@ -1,4 +1,5 @@
-﻿using Shopper2019.Logic;
+﻿using Autofac;
+using Shopper2019.Logic;
 using Shopper2019.Logic.Models;
 using Shopper2019.Logic.Processors;
 using Shopper2019.Logic.Processors.StockItemProcessors;
@@ -17,6 +18,14 @@ namespace Shopper2019.Logic.Processors
 
     public class StockListItemProcessor : IStockItemListModel, IStockListItemProcessor
     {
+        IContainer container;
+        ISaveToStockProcessor save;
+
+        public StockListItemProcessor()
+        {
+            container = Factory.Configure();
+            save = container.Resolve<ISaveToStockProcessor>();
+        }
         public List<IStockItem> StockItemList { get; set; }
 
         public void CreateNewList()
@@ -67,7 +76,6 @@ namespace Shopper2019.Logic.Processors
         }
 
         //zapsz elementy listy do bazysql
-        ISaveToStockProcessor save = Factory.CreateSaveToStockProcessor();
         public void SaveListToDatabase(List<IStockItem> listName)
         {                   
                 foreach (var item in listName)
@@ -75,12 +83,7 @@ namespace Shopper2019.Logic.Processors
                     save.SaveItemToSqlStock(item);
                 }         
         }
-        // to nie lista ale sztuka, ale to jest wyżej
-        //public void SaveStockItemToStock(IStockItem item)
-        //{
-        //    save.SaveItemToSqlStock(item);
-        //}
-        //-------------------------------------------------
+
         //usuń z listy item po kodzie to sie kiedyś przyda
         public void DeleteStockItemFromList(string code)
         {
@@ -88,7 +91,7 @@ namespace Shopper2019.Logic.Processors
 
             for (int i = 0; i < StockItemList.Count; i++)
             {
-                // if it is List<String>
+                // if is it List<String>
                 if (StockItemList[i].Code == code)
                 {
                     StockItemList.RemoveAt(i);

@@ -1,4 +1,5 @@
-﻿using Shopper2019.Logic.Models;
+﻿using Autofac;
+using Shopper2019.Logic.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,11 +10,18 @@ namespace Shopper2019.Logic.Processors
 {
     public class SaleItemProcessor : ISaleItemProcessor
     {
+        IContainer container;
+        ISaleItem saleItem;
+        public SaleItemProcessor()
+        {
+            container = Factory.Configure();
+        }
         public ISaleItem SetValuesToSaleItem(string code, string name, decimal quantity, string unitOfMeasure, decimal netPrice, int vatTaxValue, decimal grossPrice) // dane z bazy i ui
         {
             if (code != "" && name != "" && quantity > 0)
             {
-                ISaleItem saleItem = Factory.CreateSaleItem();
+                //= Factory.CreateSaleItem();
+                saleItem = container.Resolve<ISaleItem>();
 
                 saleItem.Code = code;
                 saleItem.Name = name;

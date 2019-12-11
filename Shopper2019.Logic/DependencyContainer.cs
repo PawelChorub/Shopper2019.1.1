@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Shopper2019.Logic
 {
-    public class DependencyContainer
+    public class BusinessLogicManager
     {
         // kontener do wstrzyku konkretnej logiki biznesowej
         public static IBusinessLogic BusinessLogicInject()

@@ -1,4 +1,5 @@
-﻿using Shopper2019.Logic.Models;
+﻿using Autofac;
+using Shopper2019.Logic.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,10 +10,17 @@ namespace Shopper2019.Logic.Processors
 {
     public class StockItemProcessor : IStockItemProcessor
     {
-        // dodaj item
+        IContainer container;
+        IStockItem stockItem;
+
+        public StockItemProcessor()
+        {
+            container = Factory.Configure();
+        }
         public IStockItem SetValuesToStockItem(string code, string name, decimal quantity, string unitOfMeasurements, decimal netPrice, int vatTaxValue, decimal grossPrice) // grossPrice autoObliczany
         {
-            IStockItem stockItem = Factory.CreateStockItem();
+            //= Factory.CreateStockItem();
+            stockItem = container.Resolve<IStockItem>();
 
             stockItem.Code = code;
             stockItem.Name = name;
@@ -23,6 +31,7 @@ namespace Shopper2019.Logic.Processors
             //brutto autoobliczane
             stockItem.Gross_Price = stockItem.Gross_Price = GrossPriceProcessor.GrossPriceCalculate(stockItem.Net_Price, stockItem.VatValue);
             stockItem.TotalGross_Price = TotalPriceValueProcessor.CalculateTotalPriceValue(stockItem.StockQuantity, stockItem.Gross_Price);
+
             return stockItem;
         }
     }

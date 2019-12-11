@@ -14,7 +14,7 @@ namespace Shopper2019.Logic.BusinessLogicFolder
         void UpdateStockItemQuantityBySaleItemList();
         void UpdateStockItemQuantityByItem(string _code, decimal _quantity);
 
-        //----T
-        bool CheckSaleItemExistsBoolTest(string code, string quantity);
+        ////----T
+        //bool CheckSaleItemExistsBoolTest(string code, string quantity);
     }
 }
