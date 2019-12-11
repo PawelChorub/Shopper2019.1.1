@@ -59,7 +59,6 @@ namespace Shopper2019.Logic.Processors
         {
             for (int i = 0; i < SaleItemList.Count; i++)
             {
-                // if it is List<String>
                 if (SaleItemList[i].Code == code)
                 {
                     SaleItemList.RemoveAt(i);
