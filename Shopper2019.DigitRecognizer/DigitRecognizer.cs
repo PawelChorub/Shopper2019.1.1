@@ -12,6 +12,7 @@ namespace Shopper2019.DigitRecognizer
         TeenNumberRecognize teenNumberRecognize = new TeenNumberRecognize();
         TenNumberRecognize tenNumberRecognize = new TenNumberRecognize();
         HundredNumerRecognize hundredNumberRecognize = new HundredNumerRecognize();
+        TousandNumberRecognize tousandNumberRecognize = new TousandNumberRecognize();
 
         public string EstimateTheNumberLength(string input)
         {
@@ -43,53 +44,7 @@ namespace Shopper2019.DigitRecognizer
             }
             return output;
         }
-        //---------------------------------------------------
-        public string TousandsNumberRecognizer(char input)
-        {
-            string endings = "";
-            string output = "";
-            Int32.TryParse(input.ToString(), out int x);
-            switch (input)
-            {
-                case '1':
-                    output = "jeden";
-                    break;
-                case '2':
-                    output = "dwa";
-                    break;
-                case '3':
-                    output = "trzy";
-                    break;
-                case '4':
-                    output = "cztery";
-                    break;
-                case '5':
-                    output = "pięć";
-                    break;
-                case '6':
-                    output = "sześć";
-                    break;
-                case '7':
-                    output = "siedem";
-                    break;
-                case '8':
-                    output = "osiem";
-                    break;
-                case '9':
-                    output = "dziewięć";
-                    break;
-                default:
-                    output = "";
-                    break;
-            }
-            if (x == 1) endings = "ąc";
-            if (x > 1 && x < 5) endings = "ące";
-            if (x >= 5 && x <= 9) endings = "ęcy";
 
-            return output + " tysi" + endings;
-
-        }
-        //---------------------------------------------------
         public string Run(string input)
         {
             string groshOutput = "";
@@ -143,11 +98,11 @@ namespace Shopper2019.DigitRecognizer
                 case "4":
                     if (zlotyDigit[2] == '1') //x.x1x,xx
                     {
-                        zlotyOutput = TousandsNumberRecognizer(zlotyDigit[0]) + " " + hundredNumberRecognize.HundredsNumberRecognizer(zlotyDigit[1]) + " " + teenNumberRecognize.TeensNumberRecognizer(zlotyDigit[3]);
+                        zlotyOutput = tousandNumberRecognize.TousandsNumberRecognizer(zlotyDigit[0]) + " " + hundredNumberRecognize.HundredsNumberRecognizer(zlotyDigit[1]) + " " + teenNumberRecognize.TeensNumberRecognizer(zlotyDigit[3]);
                     }
                     else
                     {
-                        zlotyOutput = TousandsNumberRecognizer(zlotyDigit[0]) + " " + hundredNumberRecognize.HundredsNumberRecognizer(zlotyDigit[1]) + " " + tenNumberRecognize.TensNumberRecognizer(zlotyDigit[2]) + " " + unitNumberRecognize.UnitsNumberRecognizer(zlotyDigit[3]);
+                        zlotyOutput = tousandNumberRecognize.TousandsNumberRecognizer(zlotyDigit[0]) + " " + hundredNumberRecognize.HundredsNumberRecognizer(zlotyDigit[1]) + " " + tenNumberRecognize.TensNumberRecognizer(zlotyDigit[2]) + " " + unitNumberRecognize.UnitsNumberRecognizer(zlotyDigit[3]);
                     }
                     break;
                 case "5":
