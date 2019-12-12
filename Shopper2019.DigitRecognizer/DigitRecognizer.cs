@@ -11,6 +11,7 @@ namespace Shopper2019.DigitRecognizer
         UnitNumberRecognize unitNumberRecognize = new UnitNumberRecognize();
         TeenNumberRecognize teenNumberRecognize = new TeenNumberRecognize();
         TenNumberRecognize tenNumberRecognize = new TenNumberRecognize();
+        HundredNumerRecognize hundredNumberRecognize = new HundredNumerRecognize();
 
         public string EstimateTheNumberLength(string input)
         {
@@ -43,46 +44,6 @@ namespace Shopper2019.DigitRecognizer
             return output;
         }
         //---------------------------------------------------
-        public string HundredsNumberRecognizer(char input)
-        {
-            string output = "";
-
-            switch (input)
-            {
-                case '1':
-                    output = "sto";
-                    break;
-                case '2':
-                    output = "dwieście";
-                    break;
-                case '3':
-                    output = "trzysta";
-                    break;
-                case '4':
-                    output = "czterysta";
-                    break;
-                case '5':
-                    output = "pięćset";
-                    break;
-                case '6':
-                    output = "sześćset";
-                    break;
-                case '7':
-                    output = "siedemset";
-                    break;
-                case '8':
-                    output = "osiemset";
-                    break;
-                case '9':
-                    output = "dziewięćset";
-                    break;
-                default:
-                    output = "";
-                    break;
-            }
-
-            return output;
-        }
         public string TousandsNumberRecognizer(char input)
         {
             string endings = "";
@@ -172,61 +133,61 @@ namespace Shopper2019.DigitRecognizer
                 case "3":
                     if (zlotyDigit[1] == '1') // jeżeli jest jedynka na x1x,xx będzie nastka
                     {
-                        zlotyOutput = HundredsNumberRecognizer(zlotyDigit[0]) + " " + teenNumberRecognize.TeensNumberRecognizer(zlotyDigit[2]);
+                        zlotyOutput = hundredNumberRecognize.HundredsNumberRecognizer(zlotyDigit[0]) + " " + teenNumberRecognize.TeensNumberRecognizer(zlotyDigit[2]);
                     }
                     else
                     {
-                        zlotyOutput = HundredsNumberRecognizer(zlotyDigit[0]) + " " + tenNumberRecognize.TensNumberRecognizer(zlotyDigit[1]) + " " + unitNumberRecognize.UnitsNumberRecognizer(zlotyDigit[2]);
+                        zlotyOutput = hundredNumberRecognize.HundredsNumberRecognizer(zlotyDigit[0]) + " " + tenNumberRecognize.TensNumberRecognizer(zlotyDigit[1]) + " " + unitNumberRecognize.UnitsNumberRecognizer(zlotyDigit[2]);
                     }
                     break;
                 case "4":
                     if (zlotyDigit[2] == '1') //x.x1x,xx
                     {
-                        zlotyOutput = TousandsNumberRecognizer(zlotyDigit[0]) + " " + HundredsNumberRecognizer(zlotyDigit[1]) + " " + teenNumberRecognize.TeensNumberRecognizer(zlotyDigit[3]);
+                        zlotyOutput = TousandsNumberRecognizer(zlotyDigit[0]) + " " + hundredNumberRecognize.HundredsNumberRecognizer(zlotyDigit[1]) + " " + teenNumberRecognize.TeensNumberRecognizer(zlotyDigit[3]);
                     }
                     else
                     {
-                        zlotyOutput = TousandsNumberRecognizer(zlotyDigit[0]) + " " + HundredsNumberRecognizer(zlotyDigit[1]) + " " + tenNumberRecognize.TensNumberRecognizer(zlotyDigit[2]) + " " + unitNumberRecognize.UnitsNumberRecognizer(zlotyDigit[3]);
+                        zlotyOutput = TousandsNumberRecognizer(zlotyDigit[0]) + " " + hundredNumberRecognize.HundredsNumberRecognizer(zlotyDigit[1]) + " " + tenNumberRecognize.TensNumberRecognizer(zlotyDigit[2]) + " " + unitNumberRecognize.UnitsNumberRecognizer(zlotyDigit[3]);
                     }
                     break;
                 case "5":
                     if (zlotyDigit[0] == '1' && zlotyDigit[3] == '1') //1x.x1x,xx
                     {
-                        zlotyOutput = teenNumberRecognize.TeensNumberRecognizer(zlotyDigit[1]) + " tys. " + HundredsNumberRecognizer(zlotyDigit[2]) + " " + teenNumberRecognize.TeensNumberRecognizer(zlotyDigit[4]);
+                        zlotyOutput = teenNumberRecognize.TeensNumberRecognizer(zlotyDigit[1]) + " tys. " + hundredNumberRecognize.HundredsNumberRecognizer(zlotyDigit[2]) + " " + teenNumberRecognize.TeensNumberRecognizer(zlotyDigit[4]);
                     }
                     else if (zlotyDigit[0] == '1') //1x.xxx,xx
                     {
-                        zlotyOutput = teenNumberRecognize.TeensNumberRecognizer(zlotyDigit[1]) + " tys. " + HundredsNumberRecognizer(zlotyDigit[2]) + " " + tenNumberRecognize.TensNumberRecognizer(zlotyDigit[3]) + " " + unitNumberRecognize.UnitsNumberRecognizer(zlotyDigit[4]);
+                        zlotyOutput = teenNumberRecognize.TeensNumberRecognizer(zlotyDigit[1]) + " tys. " + hundredNumberRecognize.HundredsNumberRecognizer(zlotyDigit[2]) + " " + tenNumberRecognize.TensNumberRecognizer(zlotyDigit[3]) + " " + unitNumberRecognize.UnitsNumberRecognizer(zlotyDigit[4]);
                     }
                     // xx.x1x,xx
                     else if (zlotyDigit[3] == '1')
                     {
-                        zlotyOutput = tenNumberRecognize.TensNumberRecognizer(zlotyDigit[0]) + " " + unitNumberRecognize.UnitsNumberRecognizer(zlotyDigit[1]) + " " + HundredsNumberRecognizer(zlotyDigit[2]) + " " + teenNumberRecognize.TeensNumberRecognizer(zlotyDigit[4]);
+                        zlotyOutput = tenNumberRecognize.TensNumberRecognizer(zlotyDigit[0]) + " " + unitNumberRecognize.UnitsNumberRecognizer(zlotyDigit[1]) + " " + hundredNumberRecognize.HundredsNumberRecognizer(zlotyDigit[2]) + " " + teenNumberRecognize.TeensNumberRecognizer(zlotyDigit[4]);
                     }
                     //xx.xxx,xx
                     else
                     {
-                        zlotyOutput = tenNumberRecognize.TensNumberRecognizer(zlotyDigit[0]) + " " + unitNumberRecognize.UnitsNumberRecognizer(zlotyDigit[1]) + " tys " + HundredsNumberRecognizer(zlotyDigit[2]) + " " + tenNumberRecognize.TensNumberRecognizer(zlotyDigit[3]) + " " + unitNumberRecognize.UnitsNumberRecognizer(zlotyDigit[4]);
+                        zlotyOutput = tenNumberRecognize.TensNumberRecognizer(zlotyDigit[0]) + " " + unitNumberRecognize.UnitsNumberRecognizer(zlotyDigit[1]) + " tys " + hundredNumberRecognize.HundredsNumberRecognizer(zlotyDigit[2]) + " " + tenNumberRecognize.TensNumberRecognizer(zlotyDigit[3]) + " " + unitNumberRecognize.UnitsNumberRecognizer(zlotyDigit[4]);
                     }
                     break;
                 case "6":
                     if (zlotyDigit[1] == '1' && zlotyDigit[4] == '1') //x1x.x1x,xx
                     {
-                        zlotyOutput = HundredsNumberRecognizer(zlotyDigit[0]) + " " + teenNumberRecognize.TeensNumberRecognizer(zlotyDigit[2]) + " tys " + HundredsNumberRecognizer(zlotyDigit[3]) + " " + teenNumberRecognize.TeensNumberRecognizer(zlotyDigit[5]);
+                        zlotyOutput = hundredNumberRecognize.HundredsNumberRecognizer(zlotyDigit[0]) + " " + teenNumberRecognize.TeensNumberRecognizer(zlotyDigit[2]) + " tys " + hundredNumberRecognize.HundredsNumberRecognizer(zlotyDigit[3]) + " " + teenNumberRecognize.TeensNumberRecognizer(zlotyDigit[5]);
                     }
                     else if (zlotyDigit[1] == '1') //x1x.xxx,xx
                     {
-                        zlotyOutput = HundredsNumberRecognizer(zlotyDigit[0]) + " " + teenNumberRecognize.TeensNumberRecognizer(zlotyDigit[2]) + " tys * " + HundredsNumberRecognizer(zlotyDigit[3]) + " * " + tenNumberRecognize.TensNumberRecognizer(zlotyDigit[4]) + " * " + unitNumberRecognize.UnitsNumberRecognizer(zlotyDigit[5]);
+                        zlotyOutput = hundredNumberRecognize.HundredsNumberRecognizer(zlotyDigit[0]) + " " + teenNumberRecognize.TeensNumberRecognizer(zlotyDigit[2]) + " tys * " + hundredNumberRecognize.HundredsNumberRecognizer(zlotyDigit[3]) + " * " + tenNumberRecognize.TensNumberRecognizer(zlotyDigit[4]) + " * " + unitNumberRecognize.UnitsNumberRecognizer(zlotyDigit[5]);
                     }
                     // xxx.x1x,xx
                     else if (zlotyDigit[4] == '1')
                     {
-                        zlotyOutput = HundredsNumberRecognizer(zlotyDigit[0]) + " " + tenNumberRecognize.TensNumberRecognizer(zlotyDigit[1]) + " " + unitNumberRecognize.UnitsNumberRecognizer(zlotyDigit[2]) + " " + HundredsNumberRecognizer(zlotyDigit[3]) + " " + teenNumberRecognize.TeensNumberRecognizer(zlotyDigit[5]);
+                        zlotyOutput = hundredNumberRecognize.HundredsNumberRecognizer(zlotyDigit[0]) + " " + tenNumberRecognize.TensNumberRecognizer(zlotyDigit[1]) + " " + unitNumberRecognize.UnitsNumberRecognizer(zlotyDigit[2]) + " " + hundredNumberRecognize.HundredsNumberRecognizer(zlotyDigit[3]) + " " + teenNumberRecognize.TeensNumberRecognizer(zlotyDigit[5]);
                     }
                     //xx.xxx,xx
                     else
                     {
-                        zlotyOutput = HundredsNumberRecognizer(zlotyDigit[0]) + " " + tenNumberRecognize.TensNumberRecognizer(zlotyDigit[1]) + " " + unitNumberRecognize.UnitsNumberRecognizer(zlotyDigit[2]) + " tys " + HundredsNumberRecognizer(zlotyDigit[3]) + " " + tenNumberRecognize.TensNumberRecognizer(zlotyDigit[4]) + " " + unitNumberRecognize.UnitsNumberRecognizer(zlotyDigit[5]);
+                        zlotyOutput = hundredNumberRecognize.HundredsNumberRecognizer(zlotyDigit[0]) + " " + tenNumberRecognize.TensNumberRecognizer(zlotyDigit[1]) + " " + unitNumberRecognize.UnitsNumberRecognizer(zlotyDigit[2]) + " tys " + hundredNumberRecognize.HundredsNumberRecognizer(zlotyDigit[3]) + " " + tenNumberRecognize.TensNumberRecognizer(zlotyDigit[4]) + " " + unitNumberRecognize.UnitsNumberRecognizer(zlotyDigit[5]);
                     }
                     break;
                 default:
