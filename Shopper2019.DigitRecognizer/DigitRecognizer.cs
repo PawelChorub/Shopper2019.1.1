@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Shopper2019.DigitRecognizer.Helpers;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Shopper2019.DigitRecognizer
 {
@@ -14,6 +11,7 @@ namespace Shopper2019.DigitRecognizer
         HundredNumerRecognize hundredNumberRecognize = new HundredNumerRecognize();
         TousandNumberRecognize tousandNumberRecognize = new TousandNumberRecognize();
         EstimateNumberLength estimateNumberLength = new EstimateNumberLength();
+        HelperMethod helperMethod = new HelperMethod();
 
         public string Run(string input)
         {
@@ -23,20 +21,7 @@ namespace Shopper2019.DigitRecognizer
             string groshToRecognize = "";
             string[] splitInput = input.Split(',').ToArray();
 
-            //podziel kwotę na 2 części
-            for (int i = 0; i < splitInput.Length; i++)
-            {
-                // XXXX,xx
-                if (i == splitInput.Length - 2)
-                {
-                    zlotyToRecognize += splitInput[i];
-                }
-                //xxxx,XX
-                else
-                {
-                    groshToRecognize += splitInput[i];
-                }
-            }
+            helperMethod.SplitAmountByComma(ref zlotyToRecognize, ref groshToRecognize, splitInput);
 
             char[] zlotyDigit = zlotyToRecognize.ToCharArray();
 
@@ -138,18 +123,10 @@ namespace Shopper2019.DigitRecognizer
                     break;
             }
 
-            if (zlotyToRecognize.Length == 1 && zlotyToRecognize == "0")
-            {
-                zlotyOutput = "zero";
-            }
-            if (groshToRecognize == "00")
-            {
-                groshOutput = "zero";
-            }
+            helperMethod.ZeroNumberRecognize(ref groshOutput, ref zlotyOutput, zlotyToRecognize, groshToRecognize);
 
             return zlotyOutput + " zł. " + groshOutput + " gr.";
         }
-
 
     }
 }
