@@ -87,176 +87,27 @@ namespace Shopper2019.Documents.View
             //----------------------------------------------------------------------
             void HeaderCreate(string text)
             {
-                System.Drawing.Image logoImg = System.Drawing.Image.FromFile("c:\\users\\paweł.000\\desktop\\logo.jpg");
-                //String logoText = "LOGO";
-                String textInput = text;
-                StringFormat logoFormat = new StringFormat();
-                logoFormat.Alignment = StringAlignment.Center;
-                StringFormat textFormat = new StringFormat();
-                textFormat.Alignment = StringAlignment.Far;
-
-                System.Drawing.Font drawFont = new System.Drawing.Font("Arial", 10, FontStyle.Regular);
-
-                //RectangleF logoRectangle = new RectangleF(15, 15, 380, 20);
-                e.Graphics.DrawImage(logoImg, 15, 15);
-
-                //e.Graphics.DrawRectangle(blackPen, 15, 15, 380, 100);
-                //e.Graphics.DrawString(logoText, drawFont, drawBrush, logoRectangle, logoFormat);
-
-                RectangleF dateAndTimeRectangle = new RectangleF(395, 15, 380, 100);
-                e.Graphics.DrawRectangle(blackPen, 395, 15, 380, 100);
-                e.Graphics.DrawString(textInput, drawFont, drawBrush, dateAndTimeRectangle, textFormat);
-
+                CreateHeaderCreate(e, text);
             }
             void InvoiceNumberCreate(string text)
             {
-                String textInput = "Faktura VAT nr: " + text + "/" + DateTime.Today.Year;
-                StringFormat textFormat = new StringFormat();
-                textFormat.Alignment = StringAlignment.Center;
-
-                System.Drawing.Font drawFont = new System.Drawing.Font("Arial", 20, FontStyle.Bold);
-
-                RectangleF r = new RectangleF(15, 130, 760, 30);
-                e.Graphics.DrawRectangle(blackPen, 15, 115, 760, 60);
-                e.Graphics.DrawString(textInput, drawFont, drawBrush, r, textFormat);
+                CreateInvoiceNumberCreate(e, text);
             }
             void VendorAndBuyerCreate()
             {
-                String vendorTitle = "Sprzedawca";
-                String buyerTitle = "Nabywca";
-                System.Drawing.Font drawFont = new System.Drawing.Font("Arial", 14, FontStyle.Bold);
-
-                RectangleF r1 = new RectangleF(15, 175, 380, 40);
-                e.Graphics.FillRectangle(drawBrushGray, 15, 175, 380, 40);
-                e.Graphics.DrawString(vendorTitle, drawFont, drawBrush, r1);
-
-                RectangleF r2 = new RectangleF(395, 175, 380, 40);
-                e.Graphics.FillRectangle(drawBrushGray, 395, 175, 380, 40);
-                e.Graphics.DrawString(buyerTitle, drawFont, drawBrush, r2);
+                CreateVendorAndBuyerCreate(e);
             }
             void VendorAndBuyerDetailsCreate(IVendor v, IBuyer b)
             {
-                String vendorDetails = v.Name + "\n" + v.PostCode + " " + v.City + "\n" + v.Street + " " + v.StreetNumber + "\n" + v.TaxNumber;
-                String buyerDetails = b.BuyerName + "\n" + b.BuyerPostCode + " " + b.BuyerCity + "\n" + b.BuyerStreet + " " + b.BuyerStreetNumber + "\n" + b.BuyerTaxNumber;
-                System.Drawing.Font drawFont = new System.Drawing.Font("Arial", 12, FontStyle.Regular);
-
-                RectangleF r1 = new RectangleF(15, 215, 380, 80);
-                e.Graphics.DrawRectangle(blackPen, 15, 215, 380, 80);
-                e.Graphics.DrawString(vendorDetails, drawFont, drawBrush, r1);
-
-                RectangleF r2 = new RectangleF(395, 215, 380, 80);
-                e.Graphics.DrawRectangle(blackPen, 395, 215, 380, 80);
-                e.Graphics.DrawString(buyerDetails, drawFont, drawBrush, r2);
+                CreateVendorAndBuyerDetailsCreate(e, v, b);
             }
             void InvoiceDatailsHeaderCreate()
             {
-                StringFormat textFormat = new StringFormat();
-                textFormat.Alignment = StringAlignment.Center;
-
-                System.Drawing.Font drawFont = new System.Drawing.Font("Arial", 9, FontStyle.Regular);
-
-                //lp
-                RectangleF r1 = new RectangleF(15, 295, 24, 45);
-                e.Graphics.FillRectangle(drawBrushLightGray, r1);
-
-                e.Graphics.DrawRectangle(blackPen, 15, 295, 24, 45);
-                e.Graphics.DrawString("Lp", drawFont, drawBrush, r1, textFormat);
-
-                //nazwa + kod
-                RectangleF r2 = new RectangleF(39, 295, 288, 45);
-                e.Graphics.FillRectangle(drawBrushLightGray, r2);
-
-                e.Graphics.DrawRectangle(blackPen, 39, 295, 288, 45);
-                e.Graphics.DrawString("Nazwa towaru lub usługi", drawFont, drawBrush, r2, textFormat);
-                // ilosc
-                RectangleF r3 = new RectangleF(327, 295, 60, 45);
-                e.Graphics.FillRectangle(drawBrushLightGray, 327, 295, 60, 45);
-
-                e.Graphics.DrawRectangle(blackPen, 327, 295, 60, 45);
-                e.Graphics.DrawString("Ilość", drawFont, drawBrush, r3, textFormat);
-                // jm
-                RectangleF r4 = new RectangleF(387, 295, 40, 45);
-                e.Graphics.FillRectangle(drawBrushLightGray, 387, 295, 40, 45);
-
-                e.Graphics.DrawRectangle(blackPen, 387, 295, 40, 45);
-                e.Graphics.DrawString("J.m.", drawFont, drawBrush, r4, textFormat);
-                // cNet
-                RectangleF r5 = new RectangleF(427, 295, 72, 45);
-                e.Graphics.FillRectangle(drawBrushLightGray, 427, 295, 72, 45);
-
-                e.Graphics.DrawRectangle(blackPen, 427, 295, 72, 45);
-                e.Graphics.DrawString("Cena netto (PLN)", drawFont, drawBrush, r5, textFormat);
-                // wNet
-                RectangleF r6 = new RectangleF(499, 295, 72, 45);
-                e.Graphics.FillRectangle(drawBrushLightGray, 499, 295, 72, 45);
-
-                e.Graphics.DrawRectangle(blackPen, 499, 295, 72, 45);
-                e.Graphics.DrawString("Wartość netto (PLN)", drawFont, drawBrush, r6, textFormat);
-                // %
-                RectangleF r7 = new RectangleF(571, 295, 24, 45);
-                e.Graphics.FillRectangle(drawBrushLightGray, 571, 295, 24, 45);
-
-                e.Graphics.DrawRectangle(blackPen, 571, 295, 24, 45);
-                e.Graphics.DrawString("Vat %", drawFont, drawBrush, r7, textFormat);
-                // taxVal
-                RectangleF r8 = new RectangleF(595, 295, 72, 45);
-                e.Graphics.FillRectangle(drawBrushLightGray, 595, 295, 72, 45);
-
-                e.Graphics.DrawRectangle(blackPen, 595, 295, 72, 45);
-                e.Graphics.DrawString("Kwota VAT (PLN)", drawFont, drawBrush, r8, textFormat);
-                //GrossPr
-                RectangleF r9 = new RectangleF(667, 295, 108, 45);
-                e.Graphics.FillRectangle(drawBrushLightGray, 667, 295, 108, 45);
-
-                e.Graphics.DrawRectangle(blackPen, 667, 295, 108, 45);
-                e.Graphics.DrawString("Wartość brutto (PLN)", drawFont, drawBrush, r9, textFormat);
+                CreateInvoiceDetailsHeaderCreate(e);
             }
             void RowCreate(int y, string c1, string c2, string c3, string c4, string c5, string c6, string c7, string c8, string c9)
             {
-                StringFormat textFormat = new StringFormat();
-                textFormat.Alignment = StringAlignment.Near;
-
-                StringFormat digitFormat = new StringFormat();
-                digitFormat.Alignment = StringAlignment.Far;
-
-                System.Drawing.Font drawFont = new System.Drawing.Font("Arial", 10, FontStyle.Regular);
-                // kolejna
-                RectangleF r1 = new RectangleF(15, y, 24, 20);
-                e.Graphics.DrawRectangle(blackPen, 15, y, 24, 20);
-                e.Graphics.DrawString(c1, drawFont, drawBrush, r1, digitFormat);
-
-                //nazwa
-                RectangleF r2 = new RectangleF(39, y, 288, 20);
-                e.Graphics.DrawRectangle(blackPen, 39, y, 288, 20);
-                e.Graphics.DrawString(c2, drawFont, drawBrush, r2, textFormat);
-                // ilosc
-                RectangleF r3 = new RectangleF(327, y, 60, 20);
-                e.Graphics.DrawRectangle(blackPen, 327, y, 60, 20);
-                e.Graphics.DrawString(c3, drawFont, drawBrush, r3, digitFormat);
-                // jm
-                RectangleF r4 = new RectangleF(387, y, 40, 20);
-                e.Graphics.DrawRectangle(blackPen, 387, y, 40, 20);
-                e.Graphics.DrawString(c4, drawFont, drawBrush, r4, textFormat);
-                // cNet
-                RectangleF r5 = new RectangleF(427, y, 72, 20);
-                e.Graphics.DrawRectangle(blackPen, 427, y, 72, 20);
-                e.Graphics.DrawString(c5, drawFont, drawBrush, r5, digitFormat);
-                // wNet
-                RectangleF r6 = new RectangleF(499, y, 72, 20);
-                e.Graphics.DrawRectangle(blackPen, 499, y, 72, 20);
-                e.Graphics.DrawString(c6, drawFont, drawBrush, r6, digitFormat);
-                // %
-                RectangleF r7 = new RectangleF(571, y, 24, 20);
-                e.Graphics.DrawRectangle(blackPen, 571, y, 24, 20);
-                e.Graphics.DrawString(c7, drawFont, drawBrush, r7, digitFormat);
-                // taxVal
-                RectangleF r8 = new RectangleF(595, y, 72, 20);
-                e.Graphics.DrawRectangle(blackPen, 595, y, 72, 20);
-                e.Graphics.DrawString(c8, drawFont, drawBrush, r8, digitFormat);
-                //GrossPr
-                RectangleF r9 = new RectangleF(667, y, 108, 20);
-                e.Graphics.DrawRectangle(blackPen, 667, y, 108, 20);
-                e.Graphics.DrawString(c9, drawFont, drawBrush, r9, digitFormat);
+                CreateRowCreate(e, y, c1, c2, c3, c4, c5, c6, c7, c8, c9);
             }
             void RowCreateProcessor()
             {
@@ -297,30 +148,7 @@ namespace Shopper2019.Documents.View
             }
             void InvoiceSummaryProcessor(int? tax, decimal taxValue, decimal netPrice, decimal grossPrice)
             {
-                if (tax == 5)
-                {
-                    _tax5summary += taxValue;
-                    _netPrice5summary += netPrice;
-                    _grossPrice5summary += grossPrice;
-                }
-                else if (tax == 8)
-                {
-                    _tax8summary += taxValue;
-                    _netPrice8summary += netPrice;
-                    _grossPrice8summary += grossPrice;
-                }
-                else if (tax == 23)
-                {
-                    _tax23summary += taxValue;
-                    _netPrice23summary += netPrice;
-                    _grossPrice23summary += grossPrice;
-                }
-                else
-                {
-                    _taxFreeSummary += taxValue;
-                    _netPriceFreeSummary += netPrice;
-                    _grossPriceFreeSummary += grossPrice;
-                }
+                CreateInvoiceSummaryProcessor(tax, taxValue, netPrice, grossPrice, ref _taxFreeSummary, ref _tax5summary, ref _tax8summary, ref _tax23summary, ref _netPrice5summary, ref _netPrice8summary, ref _netPrice23summary, ref _netPriceFreeSummary, ref _grossPrice5summary, ref _grossPrice8summary, ref _grossPrice23summary, ref _grossPriceFreeSummary);
             }
             void InvoiceSummary(int y, string _totalAmount)
             {
@@ -370,118 +198,28 @@ namespace Shopper2019.Documents.View
             }
             void TotalAmount(string amount)
             {
-                //String amount = "1234,25";
-                String amountInWords = digitRecognizer.Run(amount);
-                System.Drawing.Font drawFont = new System.Drawing.Font("Arial", 10, FontStyle.Regular);
-                System.Drawing.Font drawFontBold = new System.Drawing.Font("Arial", 10, FontStyle.Bold);
-                System.Drawing.Font drawFontBoldBig = new System.Drawing.Font("Arial", 18, FontStyle.Bold);
-                System.Drawing.Font drawFontSmall = new System.Drawing.Font("Arial", 8, FontStyle.Regular);
-
-                RectangleF r1 = new RectangleF(15, 795, 120, 40);
-                e.Graphics.FillRectangle(drawBrushLightGray, 15, 785, 120, 40);
-
-                e.Graphics.DrawRectangle(blackPen, 15, 785, 120, 40);
-                e.Graphics.DrawString("Do zapłaty: ", drawFontBold, drawBrush, r1);
-
-                RectangleF r2 = new RectangleF(135, 795, 260, 40);
-                e.Graphics.FillRectangle(drawBrushLightGray, 135, 785, 260, 40);
-
-                e.Graphics.DrawRectangle(blackPen, 135, 785, 260, 40);
-                e.Graphics.DrawString(amount + " zł", drawFontBoldBig, drawBrush, r2);
-
-                RectangleF r3 = new RectangleF(395, 785, 120, 40);
-                e.Graphics.DrawRectangle(blackPen, 395, 785, 120, 40);
-                e.Graphics.DrawString("Kwota słownie:", drawFontBold, drawBrush, r3);
-
-                RectangleF r4 = new RectangleF(515, 785, 260, 40);
-                e.Graphics.DrawRectangle(blackPen, 515, 785, 260, 40);
-                e.Graphics.DrawString(amountInWords, drawFontSmall, drawBrush, r4);
+                CreateTotalAmount(e, amount);
 
             }
             void PaymentDetails()
             {
-                String paymentMethod = "przelew";
-                String paymentDeadline = "19-06-2019";
-                System.Drawing.Font drawFont = new System.Drawing.Font("Arial", 10, FontStyle.Regular);
-                System.Drawing.Font drawFontBold = new System.Drawing.Font("Arial", 10, FontStyle.Bold);
-
-                SolidBrush drawBrush = new SolidBrush(Color.Black);
-                Pen blackPen2 = new Pen(Color.Black);
-
-                RectangleF r1 = new RectangleF(15, 825, 120, 20);
-                e.Graphics.DrawRectangle(blackPen, 15, 825, 120, 20);
-                e.Graphics.DrawString("Sposób zapłaty: ", drawFontBold, drawBrush, r1);
-
-                RectangleF r2 = new RectangleF(135, 825, 260, 20);
-                e.Graphics.DrawRectangle(blackPen, 135, 825, 260, 20);
-                e.Graphics.DrawString(paymentMethod, drawFont, drawBrush, r2);
-
-                RectangleF r3 = new RectangleF(395, 825, 120, 20);
-                e.Graphics.DrawRectangle(blackPen, 395, 825, 120, 20);
-                e.Graphics.DrawString("Termin płatności", drawFontBold, drawBrush, r3);
-
-                RectangleF r4 = new RectangleF(515, 825, 260, 20);
-                e.Graphics.DrawRectangle(blackPen, 515, 825, 260, 20);
-                e.Graphics.DrawString(paymentDeadline, drawFont, drawBrush, r4);
+                CreatePaymentDetails(e);
             }
             void BankDetails()
             {
-                String bankName = "BZ WBK S.A.";
-                String bankAccount = "12 1234 1456 0000 3250 0258 9639";
-                System.Drawing.Font drawFont = new System.Drawing.Font("Arial", 10, FontStyle.Regular);
-                System.Drawing.Font drawFontBold = new System.Drawing.Font("Arial", 10, FontStyle.Bold);
-
-                RectangleF r1 = new RectangleF(15, 845, 120, 20);
-                e.Graphics.DrawRectangle(blackPen, 15, 845, 120, 20);
-                e.Graphics.DrawString("Bank:", drawFontBold, drawBrush, r1);
-
-                RectangleF r2 = new RectangleF(135, 845, 260, 20);
-                e.Graphics.DrawRectangle(blackPen, 135, 845, 260, 20);
-                e.Graphics.DrawString(bankName, drawFont, drawBrush, r2);
-
-                RectangleF r3 = new RectangleF(395, 845, 120, 20);
-                e.Graphics.DrawRectangle(blackPen, 395, 845, 120, 20);
-                e.Graphics.DrawString("Numer konta:", drawFontBold, drawBrush, r3);
-
-                RectangleF r4 = new RectangleF(515, 845, 260, 20);
-                e.Graphics.DrawRectangle(blackPen, 515, 845, 260, 20);
-                e.Graphics.DrawString(bankAccount, drawFont, drawBrush, r4);
+                CreateBankDetails(e);
             }
             void CommentSpace(string text)
             {
-                String commentText = "Uwagi : " + text;
-                System.Drawing.Font drawFont = new System.Drawing.Font("Arial", 10, FontStyle.Regular);
-
-                RectangleF r1 = new RectangleF(15, 865, 760, 40);
-                //e.Graphics.DrawRectangle(blackPen, 15, 865, 760, 40);
-                e.Graphics.DrawString(commentText, drawFont, drawBrush, r1);
+                CreateCommentSpace(e, text);
             }
             void SignatureSpace()
             {
-                System.Drawing.Font drawFont = new System.Drawing.Font("Arial", 6, FontStyle.Regular);
-
-                RectangleF r1 = new RectangleF(15, 1005, 240, 20);
-                //e.Graphics.DrawRectangle(blackPen, 15, 1005, 240, 20);
-                e.Graphics.DrawLine(blackPen, 15, 1005, 245, 1005);
-                e.Graphics.DrawString("podpis osoby upoważnionej do odbioru faktury VAT", drawFont, drawBrush, r1);
-
-                RectangleF r2 = new RectangleF(265, 1005, 160, 20);
-                //e.Graphics.DrawRectangle(blackPen, 265, 1005, 160, 20);
-                e.Graphics.DrawLine(blackPen, 250, 1005, 350, 1005);
-                e.Graphics.DrawString("data odbioru", drawFont, drawBrush, r2);
-
-                RectangleF r3 = new RectangleF(480, 1005, 280, 20);
-                //e.Graphics.DrawRectangle(blackPen, 520, 1005, 240, 20);
-                e.Graphics.DrawLine(blackPen, 480, 1005, 775, 1005);
-                e.Graphics.DrawString("podpis i pieczęć osoby upoważnionej do wystawienia faktury VAT", drawFont, drawBrush, r3);
+                CreateSignatureSpace(e);
             }
             void ProductSignature()
             {
-                e.Graphics.DrawLine(blackPen, new Point(15, 1085), new Point(775, 1085));
-                e.Graphics.DrawString("Wydrukowano z programu Shopper 2019. \u00a9 Wszelkie prawa zastrzeżone przez papaceha.",
-                    new System.Drawing.Font("Arial", 6, FontStyle.Regular),
-                    drawBrush,
-                    new RectangleF(15, 1085, 760, 20));
+                CreateProductSignature(e);
             }
             //---------------------------------------------------------------------
             //Rysowanie obszaru roboczego
@@ -513,6 +251,332 @@ namespace Shopper2019.Documents.View
             SignatureSpace();
             //-linia kończąca
             ProductSignature();
+        }
+
+        private void CreateHeaderCreate(System.Drawing.Printing.PrintPageEventArgs e, string text)
+        {
+            System.Drawing.Image logoImg = System.Drawing.Image.FromFile("c:\\users\\paweł.000\\desktop\\logo.jpg");
+            //String logoText = "LOGO";
+            String textInput = text;
+            StringFormat logoFormat = new StringFormat();
+            logoFormat.Alignment = StringAlignment.Center;
+            StringFormat textFormat = new StringFormat();
+            textFormat.Alignment = StringAlignment.Far;
+
+            System.Drawing.Font drawFont = new System.Drawing.Font("Arial", 10, FontStyle.Regular);
+
+            //RectangleF logoRectangle = new RectangleF(15, 15, 380, 20);
+            e.Graphics.DrawImage(logoImg, 15, 15);
+
+            //e.Graphics.DrawRectangle(blackPen, 15, 15, 380, 100);
+            //e.Graphics.DrawString(logoText, drawFont, drawBrush, logoRectangle, logoFormat);
+
+            RectangleF dateAndTimeRectangle = new RectangleF(395, 15, 380, 100);
+            e.Graphics.DrawRectangle(blackPen, 395, 15, 380, 100);
+            e.Graphics.DrawString(textInput, drawFont, drawBrush, dateAndTimeRectangle, textFormat);
+        }
+
+        private void CreateInvoiceNumberCreate(System.Drawing.Printing.PrintPageEventArgs e, string text)
+        {
+            String textInput = "Faktura VAT nr: " + text + "/" + DateTime.Today.Year;
+            StringFormat textFormat = new StringFormat();
+            textFormat.Alignment = StringAlignment.Center;
+
+            System.Drawing.Font drawFont = new System.Drawing.Font("Arial", 20, FontStyle.Bold);
+
+            RectangleF r = new RectangleF(15, 130, 760, 30);
+            e.Graphics.DrawRectangle(blackPen, 15, 115, 760, 60);
+            e.Graphics.DrawString(textInput, drawFont, drawBrush, r, textFormat);
+        }
+
+        private void CreateVendorAndBuyerCreate(System.Drawing.Printing.PrintPageEventArgs e)
+        {
+            String vendorTitle = "Sprzedawca";
+            String buyerTitle = "Nabywca";
+            System.Drawing.Font drawFont = new System.Drawing.Font("Arial", 14, FontStyle.Bold);
+
+            RectangleF r1 = new RectangleF(15, 175, 380, 40);
+            e.Graphics.FillRectangle(drawBrushGray, 15, 175, 380, 40);
+            e.Graphics.DrawString(vendorTitle, drawFont, drawBrush, r1);
+
+            RectangleF r2 = new RectangleF(395, 175, 380, 40);
+            e.Graphics.FillRectangle(drawBrushGray, 395, 175, 380, 40);
+            e.Graphics.DrawString(buyerTitle, drawFont, drawBrush, r2);
+        }
+
+        private void CreateVendorAndBuyerDetailsCreate(System.Drawing.Printing.PrintPageEventArgs e, IVendor v, IBuyer b)
+        {
+            String vendorDetails = v.Name + "\n" + v.PostCode + " " + v.City + "\n" + v.Street + " " + v.StreetNumber + "\n" + v.TaxNumber;
+            String buyerDetails = b.BuyerName + "\n" + b.BuyerPostCode + " " + b.BuyerCity + "\n" + b.BuyerStreet + " " + b.BuyerStreetNumber + "\n" + b.BuyerTaxNumber;
+            System.Drawing.Font drawFont = new System.Drawing.Font("Arial", 12, FontStyle.Regular);
+
+            RectangleF r1 = new RectangleF(15, 215, 380, 80);
+            e.Graphics.DrawRectangle(blackPen, 15, 215, 380, 80);
+            e.Graphics.DrawString(vendorDetails, drawFont, drawBrush, r1);
+
+            RectangleF r2 = new RectangleF(395, 215, 380, 80);
+            e.Graphics.DrawRectangle(blackPen, 395, 215, 380, 80);
+            e.Graphics.DrawString(buyerDetails, drawFont, drawBrush, r2);
+        }
+
+        private void CreateInvoiceDetailsHeaderCreate(System.Drawing.Printing.PrintPageEventArgs e)
+        {
+            StringFormat textFormat = new StringFormat();
+            textFormat.Alignment = StringAlignment.Center;
+
+            System.Drawing.Font drawFont = new System.Drawing.Font("Arial", 9, FontStyle.Regular);
+
+            //lp
+            RectangleF r1 = new RectangleF(15, 295, 24, 45);
+            e.Graphics.FillRectangle(drawBrushLightGray, r1);
+
+            e.Graphics.DrawRectangle(blackPen, 15, 295, 24, 45);
+            e.Graphics.DrawString("Lp", drawFont, drawBrush, r1, textFormat);
+
+            //nazwa + kod
+            RectangleF r2 = new RectangleF(39, 295, 288, 45);
+            e.Graphics.FillRectangle(drawBrushLightGray, r2);
+
+            e.Graphics.DrawRectangle(blackPen, 39, 295, 288, 45);
+            e.Graphics.DrawString("Nazwa towaru lub usługi", drawFont, drawBrush, r2, textFormat);
+            // ilosc
+            RectangleF r3 = new RectangleF(327, 295, 60, 45);
+            e.Graphics.FillRectangle(drawBrushLightGray, 327, 295, 60, 45);
+
+            e.Graphics.DrawRectangle(blackPen, 327, 295, 60, 45);
+            e.Graphics.DrawString("Ilość", drawFont, drawBrush, r3, textFormat);
+            // jm
+            RectangleF r4 = new RectangleF(387, 295, 40, 45);
+            e.Graphics.FillRectangle(drawBrushLightGray, 387, 295, 40, 45);
+
+            e.Graphics.DrawRectangle(blackPen, 387, 295, 40, 45);
+            e.Graphics.DrawString("J.m.", drawFont, drawBrush, r4, textFormat);
+            // cNet
+            RectangleF r5 = new RectangleF(427, 295, 72, 45);
+            e.Graphics.FillRectangle(drawBrushLightGray, 427, 295, 72, 45);
+
+            e.Graphics.DrawRectangle(blackPen, 427, 295, 72, 45);
+            e.Graphics.DrawString("Cena netto (PLN)", drawFont, drawBrush, r5, textFormat);
+            // wNet
+            RectangleF r6 = new RectangleF(499, 295, 72, 45);
+            e.Graphics.FillRectangle(drawBrushLightGray, 499, 295, 72, 45);
+
+            e.Graphics.DrawRectangle(blackPen, 499, 295, 72, 45);
+            e.Graphics.DrawString("Wartość netto (PLN)", drawFont, drawBrush, r6, textFormat);
+            // %
+            RectangleF r7 = new RectangleF(571, 295, 24, 45);
+            e.Graphics.FillRectangle(drawBrushLightGray, 571, 295, 24, 45);
+
+            e.Graphics.DrawRectangle(blackPen, 571, 295, 24, 45);
+            e.Graphics.DrawString("Vat %", drawFont, drawBrush, r7, textFormat);
+            // taxVal
+            RectangleF r8 = new RectangleF(595, 295, 72, 45);
+            e.Graphics.FillRectangle(drawBrushLightGray, 595, 295, 72, 45);
+
+            e.Graphics.DrawRectangle(blackPen, 595, 295, 72, 45);
+            e.Graphics.DrawString("Kwota VAT (PLN)", drawFont, drawBrush, r8, textFormat);
+            //GrossPr
+            RectangleF r9 = new RectangleF(667, 295, 108, 45);
+            e.Graphics.FillRectangle(drawBrushLightGray, 667, 295, 108, 45);
+
+            e.Graphics.DrawRectangle(blackPen, 667, 295, 108, 45);
+            e.Graphics.DrawString("Wartość brutto (PLN)", drawFont, drawBrush, r9, textFormat);
+        }
+
+        private void CreateRowCreate(System.Drawing.Printing.PrintPageEventArgs e, int y, string c1, string c2, string c3, string c4, string c5, string c6, string c7, string c8, string c9)
+        {
+            StringFormat textFormat = new StringFormat();
+            textFormat.Alignment = StringAlignment.Near;
+
+            StringFormat digitFormat = new StringFormat();
+            digitFormat.Alignment = StringAlignment.Far;
+
+            System.Drawing.Font drawFont = new System.Drawing.Font("Arial", 10, FontStyle.Regular);
+            // kolejna
+            RectangleF r1 = new RectangleF(15, y, 24, 20);
+            e.Graphics.DrawRectangle(blackPen, 15, y, 24, 20);
+            e.Graphics.DrawString(c1, drawFont, drawBrush, r1, digitFormat);
+
+            //nazwa
+            RectangleF r2 = new RectangleF(39, y, 288, 20);
+            e.Graphics.DrawRectangle(blackPen, 39, y, 288, 20);
+            e.Graphics.DrawString(c2, drawFont, drawBrush, r2, textFormat);
+            // ilosc
+            RectangleF r3 = new RectangleF(327, y, 60, 20);
+            e.Graphics.DrawRectangle(blackPen, 327, y, 60, 20);
+            e.Graphics.DrawString(c3, drawFont, drawBrush, r3, digitFormat);
+            // jm
+            RectangleF r4 = new RectangleF(387, y, 40, 20);
+            e.Graphics.DrawRectangle(blackPen, 387, y, 40, 20);
+            e.Graphics.DrawString(c4, drawFont, drawBrush, r4, textFormat);
+            // cNet
+            RectangleF r5 = new RectangleF(427, y, 72, 20);
+            e.Graphics.DrawRectangle(blackPen, 427, y, 72, 20);
+            e.Graphics.DrawString(c5, drawFont, drawBrush, r5, digitFormat);
+            // wNet
+            RectangleF r6 = new RectangleF(499, y, 72, 20);
+            e.Graphics.DrawRectangle(blackPen, 499, y, 72, 20);
+            e.Graphics.DrawString(c6, drawFont, drawBrush, r6, digitFormat);
+            // %
+            RectangleF r7 = new RectangleF(571, y, 24, 20);
+            e.Graphics.DrawRectangle(blackPen, 571, y, 24, 20);
+            e.Graphics.DrawString(c7, drawFont, drawBrush, r7, digitFormat);
+            // taxVal
+            RectangleF r8 = new RectangleF(595, y, 72, 20);
+            e.Graphics.DrawRectangle(blackPen, 595, y, 72, 20);
+            e.Graphics.DrawString(c8, drawFont, drawBrush, r8, digitFormat);
+            //GrossPr
+            RectangleF r9 = new RectangleF(667, y, 108, 20);
+            e.Graphics.DrawRectangle(blackPen, 667, y, 108, 20);
+            e.Graphics.DrawString(c9, drawFont, drawBrush, r9, digitFormat);
+        }
+
+        private static void CreateInvoiceSummaryProcessor(int? tax, decimal taxValue, decimal netPrice, decimal grossPrice, ref decimal _taxFreeSummary, ref decimal _tax5summary, ref decimal _tax8summary, ref decimal _tax23summary, ref decimal _netPrice5summary, ref decimal _netPrice8summary, ref decimal _netPrice23summary, ref decimal _netPriceFreeSummary, ref decimal _grossPrice5summary, ref decimal _grossPrice8summary, ref decimal _grossPrice23summary, ref decimal _grossPriceFreeSummary)
+        {
+            if (tax == 5)
+            {
+                _tax5summary += taxValue;
+                _netPrice5summary += netPrice;
+                _grossPrice5summary += grossPrice;
+            }
+            else if (tax == 8)
+            {
+                _tax8summary += taxValue;
+                _netPrice8summary += netPrice;
+                _grossPrice8summary += grossPrice;
+            }
+            else if (tax == 23)
+            {
+                _tax23summary += taxValue;
+                _netPrice23summary += netPrice;
+                _grossPrice23summary += grossPrice;
+            }
+            else
+            {
+                _taxFreeSummary += taxValue;
+                _netPriceFreeSummary += netPrice;
+                _grossPriceFreeSummary += grossPrice;
+            }
+        }
+
+        private void CreateTotalAmount(System.Drawing.Printing.PrintPageEventArgs e, string amount)
+        {
+            //String amount = "1234,25";
+            String amountInWords = digitRecognizer.Run(amount);
+            System.Drawing.Font drawFont = new System.Drawing.Font("Arial", 10, FontStyle.Regular);
+            System.Drawing.Font drawFontBold = new System.Drawing.Font("Arial", 10, FontStyle.Bold);
+            System.Drawing.Font drawFontBoldBig = new System.Drawing.Font("Arial", 18, FontStyle.Bold);
+            System.Drawing.Font drawFontSmall = new System.Drawing.Font("Arial", 8, FontStyle.Regular);
+
+            RectangleF r1 = new RectangleF(15, 795, 120, 40);
+            e.Graphics.FillRectangle(drawBrushLightGray, 15, 785, 120, 40);
+
+            e.Graphics.DrawRectangle(blackPen, 15, 785, 120, 40);
+            e.Graphics.DrawString("Do zapłaty: ", drawFontBold, drawBrush, r1);
+
+            RectangleF r2 = new RectangleF(135, 795, 260, 40);
+            e.Graphics.FillRectangle(drawBrushLightGray, 135, 785, 260, 40);
+
+            e.Graphics.DrawRectangle(blackPen, 135, 785, 260, 40);
+            e.Graphics.DrawString(amount + " zł", drawFontBoldBig, drawBrush, r2);
+
+            RectangleF r3 = new RectangleF(395, 785, 120, 40);
+            e.Graphics.DrawRectangle(blackPen, 395, 785, 120, 40);
+            e.Graphics.DrawString("Kwota słownie:", drawFontBold, drawBrush, r3);
+
+            RectangleF r4 = new RectangleF(515, 785, 260, 40);
+            e.Graphics.DrawRectangle(blackPen, 515, 785, 260, 40);
+            e.Graphics.DrawString(amountInWords, drawFontSmall, drawBrush, r4);
+        }
+
+        private void CreatePaymentDetails(System.Drawing.Printing.PrintPageEventArgs e)
+        {
+            String paymentMethod = "przelew";
+            String paymentDeadline = "19-06-2019";
+            System.Drawing.Font drawFont = new System.Drawing.Font("Arial", 10, FontStyle.Regular);
+            System.Drawing.Font drawFontBold = new System.Drawing.Font("Arial", 10, FontStyle.Bold);
+
+            SolidBrush drawBrush = new SolidBrush(Color.Black);
+            Pen blackPen2 = new Pen(Color.Black);
+
+            RectangleF r1 = new RectangleF(15, 825, 120, 20);
+            e.Graphics.DrawRectangle(blackPen, 15, 825, 120, 20);
+            e.Graphics.DrawString("Sposób zapłaty: ", drawFontBold, drawBrush, r1);
+
+            RectangleF r2 = new RectangleF(135, 825, 260, 20);
+            e.Graphics.DrawRectangle(blackPen, 135, 825, 260, 20);
+            e.Graphics.DrawString(paymentMethod, drawFont, drawBrush, r2);
+
+            RectangleF r3 = new RectangleF(395, 825, 120, 20);
+            e.Graphics.DrawRectangle(blackPen, 395, 825, 120, 20);
+            e.Graphics.DrawString("Termin płatności", drawFontBold, drawBrush, r3);
+
+            RectangleF r4 = new RectangleF(515, 825, 260, 20);
+            e.Graphics.DrawRectangle(blackPen, 515, 825, 260, 20);
+            e.Graphics.DrawString(paymentDeadline, drawFont, drawBrush, r4);
+        }
+
+        private void CreateBankDetails(System.Drawing.Printing.PrintPageEventArgs e)
+        {
+            String bankName = "BZ WBK S.A.";
+            String bankAccount = "12 1234 1456 0000 3250 0258 9639";
+            System.Drawing.Font drawFont = new System.Drawing.Font("Arial", 10, FontStyle.Regular);
+            System.Drawing.Font drawFontBold = new System.Drawing.Font("Arial", 10, FontStyle.Bold);
+
+            RectangleF r1 = new RectangleF(15, 845, 120, 20);
+            e.Graphics.DrawRectangle(blackPen, 15, 845, 120, 20);
+            e.Graphics.DrawString("Bank:", drawFontBold, drawBrush, r1);
+
+            RectangleF r2 = new RectangleF(135, 845, 260, 20);
+            e.Graphics.DrawRectangle(blackPen, 135, 845, 260, 20);
+            e.Graphics.DrawString(bankName, drawFont, drawBrush, r2);
+
+            RectangleF r3 = new RectangleF(395, 845, 120, 20);
+            e.Graphics.DrawRectangle(blackPen, 395, 845, 120, 20);
+            e.Graphics.DrawString("Numer konta:", drawFontBold, drawBrush, r3);
+
+            RectangleF r4 = new RectangleF(515, 845, 260, 20);
+            e.Graphics.DrawRectangle(blackPen, 515, 845, 260, 20);
+            e.Graphics.DrawString(bankAccount, drawFont, drawBrush, r4);
+        }
+
+        private void CreateCommentSpace(System.Drawing.Printing.PrintPageEventArgs e, string text)
+        {
+            String commentText = "Uwagi : " + text;
+            System.Drawing.Font drawFont = new System.Drawing.Font("Arial", 10, FontStyle.Regular);
+
+            RectangleF r1 = new RectangleF(15, 865, 760, 40);
+            //e.Graphics.DrawRectangle(blackPen, 15, 865, 760, 40);
+            e.Graphics.DrawString(commentText, drawFont, drawBrush, r1);
+        }
+
+        private void CreateSignatureSpace(System.Drawing.Printing.PrintPageEventArgs e)
+        {
+            System.Drawing.Font drawFont = new System.Drawing.Font("Arial", 6, FontStyle.Regular);
+
+            RectangleF r1 = new RectangleF(15, 1005, 240, 20);
+            //e.Graphics.DrawRectangle(blackPen, 15, 1005, 240, 20);
+            e.Graphics.DrawLine(blackPen, 15, 1005, 245, 1005);
+            e.Graphics.DrawString("podpis osoby upoważnionej do odbioru faktury VAT", drawFont, drawBrush, r1);
+
+            RectangleF r2 = new RectangleF(265, 1005, 160, 20);
+            //e.Graphics.DrawRectangle(blackPen, 265, 1005, 160, 20);
+            e.Graphics.DrawLine(blackPen, 250, 1005, 350, 1005);
+            e.Graphics.DrawString("data odbioru", drawFont, drawBrush, r2);
+
+            RectangleF r3 = new RectangleF(480, 1005, 280, 20);
+            //e.Graphics.DrawRectangle(blackPen, 520, 1005, 240, 20);
+            e.Graphics.DrawLine(blackPen, 480, 1005, 775, 1005);
+            e.Graphics.DrawString("podpis i pieczęć osoby upoważnionej do wystawienia faktury VAT", drawFont, drawBrush, r3);
+        }
+
+        private void CreateProductSignature(System.Drawing.Printing.PrintPageEventArgs e)
+        {
+            e.Graphics.DrawLine(blackPen, new Point(15, 1085), new Point(775, 1085));
+            e.Graphics.DrawString("Wydrukowano z programu Shopper 2019. \u00a9 Wszelkie prawa zastrzeżone przez papaceha.",
+                new System.Drawing.Font("Arial", 6, FontStyle.Regular),
+                drawBrush,
+                new RectangleF(15, 1085, 760, 20));
         }
 
         private void PrintDocumentInvoice_PrintPage(object sender, System.Drawing.Printing.PrintPageEventArgs e)
