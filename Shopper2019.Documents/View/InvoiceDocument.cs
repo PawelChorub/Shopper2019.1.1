@@ -14,8 +14,7 @@ namespace Shopper2019.Documents.View
         {
             InitializeComponent();
         }
-        Shopper2019.DigitRecognizer.DigitRecognizer digitRecognizer = new Shopper2019.DigitRecognizer.DigitRecognizer();
-
+        DigitRecognizer.DigitRecognizer digitRecognizer = new DigitRecognizer.DigitRecognizer();
 
         //poziomy punkt zakotwiczenia początku rozszerzalnej tabeli
         private Point startAnchor = new Point(15, 340);
@@ -85,29 +84,10 @@ namespace Shopper2019.Documents.View
             decimal _grossPriceFreeSummary = 0;
 
             //----------------------------------------------------------------------
-            void HeaderCreate(string text)
-            {
-                CreateHeaderCreate(e, text);
-            }
-            void InvoiceNumberCreate(string text)
-            {
-                CreateInvoiceNumberCreate(e, text);
-            }
-            void VendorAndBuyerCreate()
-            {
-                CreateVendorAndBuyerCreate(e);
-            }
-            void VendorAndBuyerDetailsCreate(IVendor v, IBuyer b)
-            {
-                CreateVendorAndBuyerDetailsCreate(e, v, b);
-            }
-            void InvoiceDatailsHeaderCreate()
-            {
-                CreateInvoiceDetailsHeaderCreate(e);
-            }
+
             void RowCreate(int y, string c1, string c2, string c3, string c4, string c5, string c6, string c7, string c8, string c9)
             {
-                CreateRowCreate(e, y, c1, c2, c3, c4, c5, c6, c7, c8, c9);
+                DrawRowCreate(e, y, c1, c2, c3, c4, c5, c6, c7, c8, c9);
             }
             void RowCreateProcessor()
             {
@@ -152,105 +132,89 @@ namespace Shopper2019.Documents.View
             }
             void InvoiceSummary(int y, string _totalAmount)
             {
-                //String inputText = text;
-                System.Drawing.Font drawFont = new System.Drawing.Font("Arial", 10, FontStyle.Regular);
-                StringFormat digitFormat = new StringFormat();
-                digitFormat.Alignment = StringAlignment.Far;
+                y = CreateInvoiceSummary(e, y, _totalAmount, _taxFreeSummary, _tax5summary, _tax8summary, _tax23summary, _netPrice5summary, _netPrice8summary, _netPrice23summary, _netPriceFreeSummary, _grossPrice5summary, _grossPrice8summary, _grossPrice23summary, _grossPriceFreeSummary);
+            }
 
-                //--podsumowanie Brutto
-                RectangleF summaryRectangle = new RectangleF(667, y, 108, 20);
-                e.Graphics.DrawRectangle(blackPen, 667, y, 108, 20);
-                e.Graphics.DrawString(_totalAmount, drawFont, drawBrush, summaryRectangle, digitFormat);
-
-                //--podsumowanie Brutto
-                RectangleF h1 = new RectangleF(499, y + 20, 276, 20);
-                e.Graphics.FillRectangle(new SolidBrush(Color.LightGray), 499, y + 20, 276, 20);
-
-                e.Graphics.DrawRectangle(blackPen, 499, y + 20, 276, 20);
-                e.Graphics.DrawString("Podsumowanie według stawek VAT", drawFont, drawBrush, h1, digitFormat);
-                y = y + 20;
-
-                string[] vatPercentLabel = { "5", "8", "23", "zw" };
-                string[] netLabel = { _netPrice5summary.ToString("F"), _netPrice8summary.ToString("F"), _netPrice23summary.ToString("F"), _netPriceFreeSummary.ToString("F") };
-                string[] grossLabel = { _grossPrice5summary.ToString("F"), _grossPrice8summary.ToString("F"), _grossPrice23summary.ToString("F"), _grossPriceFreeSummary.ToString("F") };
-                string[] taxLabel = { _tax5summary.ToString("F"), _tax8summary.ToString("F"), _tax23summary.ToString("F"), _taxFreeSummary.ToString("F") };
-                for (int i = 0; i <= 3; i++)
-                {
-                    //--tabela summary
-                    // wNet
-                    RectangleF r6 = new RectangleF(499, y + 20, 72, 20);
-                    e.Graphics.DrawRectangle(blackPen, 499, y + 20, 72, 20);
-                    e.Graphics.DrawString(netLabel[i], drawFont, drawBrush, r6, digitFormat);
-                    // %
-                    RectangleF r7 = new RectangleF(571, y + 20, 24, 20);
-                    e.Graphics.DrawRectangle(blackPen, 571, y + 20, 24, 20);
-                    e.Graphics.DrawString(vatPercentLabel[i], drawFont, drawBrush, r7, digitFormat);
-                    // taxVal
-                    RectangleF r8 = new RectangleF(595, y + 20, 72, 20);
-                    e.Graphics.DrawRectangle(blackPen, 595, y + 20, 72, 20);
-                    e.Graphics.DrawString(taxLabel[i], drawFont, drawBrush, r8, digitFormat);
-                    //GrossPr
-                    RectangleF r9 = new RectangleF(667, y + 20, 108, 20);
-                    e.Graphics.DrawRectangle(blackPen, 667, y + 20, 108, 20);
-                    e.Graphics.DrawString(grossLabel[i], drawFont, drawBrush, r9, digitFormat);
-                    y = y + 20;
-                }
-            }
-            void TotalAmount(string amount)
-            {
-                CreateTotalAmount(e, amount);
-
-            }
-            void PaymentDetails()
-            {
-                CreatePaymentDetails(e);
-            }
-            void BankDetails()
-            {
-                CreateBankDetails(e);
-            }
-            void CommentSpace(string text)
-            {
-                CreateCommentSpace(e, text);
-            }
-            void SignatureSpace()
-            {
-                CreateSignatureSpace(e);
-            }
-            void ProductSignature()
-            {
-                CreateProductSignature(e);
-            }
             //---------------------------------------------------------------------
             //Rysowanie obszaru roboczego
             e.Graphics.DrawRectangle(new Pen(Color.Black), CreateMainWorkFrame());
             //-Logo, Daty
-            HeaderCreate("Częstochowa, " + DateTime.Now.ToShortDateString());
+            CreateHeaderCreate(e, "Częstochowa, " + DateTime.Now.ToShortDateString());
             //-numeracja
-            InvoiceNumberCreate("125364");
+            CreateInvoiceNumberCreate(e, "125364");
             //-sprzed/kupuj
-            VendorAndBuyerCreate();
+            CreateVendorAndBuyerCreate(e);
             //-dane sprzed - kupuj
-            VendorAndBuyerDetailsCreate(_vendor, _buyer);
+            CreateVendorAndBuyerDetailsCreate(e, _vendor, _buyer);
             //-tabela
-            InvoiceDatailsHeaderCreate();
+            CreateInvoiceDetailsHeaderCreate(e);
             //----Obsługa tabeli rozszerzalnej
             RowCreateProcessor();
             //----Obsługa tabeli rozszerzalnej koniec
             //-podsumowanie
             InvoiceSummary(endAnchor.Y, totalAmount.ToString("F"));
             //-kwota do zapl
-            TotalAmount(totalAmount.ToString("F"));
+            CreateTotalAmount(e, totalAmount.ToString("F"));
             //-płatności
-            PaymentDetails();
+            CreatePaymentDetails(e);
             //-bank
-            BankDetails();
+            CreateBankDetails(e);
             //-uwagi
-            CommentSpace("Towar dostarczony transportem nabywcy.");
+            CreateCommentSpace(e, "Towar dostarczony transportem nabywcy.");
             //-podpisy
-            SignatureSpace();
+            SignatureSpace signatureSpace = new SignatureSpace();
+            signatureSpace.CreateSignatureSpace(e);
             //-linia kończąca
-            ProductSignature();
+            CreateProductSignature(e);
+        }
+
+        private int CreateInvoiceSummary(System.Drawing.Printing.PrintPageEventArgs e, int y, string _totalAmount, decimal _taxFreeSummary, decimal _tax5summary, decimal _tax8summary, decimal _tax23summary, decimal _netPrice5summary, decimal _netPrice8summary, decimal _netPrice23summary, decimal _netPriceFreeSummary, decimal _grossPrice5summary, decimal _grossPrice8summary, decimal _grossPrice23summary, decimal _grossPriceFreeSummary)
+        {
+            //String inputText = text;
+            System.Drawing.Font drawFont = new System.Drawing.Font("Arial", 10, FontStyle.Regular);
+            StringFormat digitFormat = new StringFormat();
+            digitFormat.Alignment = StringAlignment.Far;
+
+            //--podsumowanie Brutto
+            RectangleF summaryRectangle = new RectangleF(667, y, 108, 20);
+            e.Graphics.DrawRectangle(blackPen, 667, y, 108, 20);
+            e.Graphics.DrawString(_totalAmount, drawFont, drawBrush, summaryRectangle, digitFormat);
+
+            //--podsumowanie Brutto
+            RectangleF h1 = new RectangleF(499, y + 20, 276, 20);
+            e.Graphics.FillRectangle(new SolidBrush(Color.LightGray), 499, y + 20, 276, 20);
+
+            e.Graphics.DrawRectangle(blackPen, 499, y + 20, 276, 20);
+            e.Graphics.DrawString("Podsumowanie według stawek VAT", drawFont, drawBrush, h1, digitFormat);
+            y = y + 20;
+
+            string[] vatPercentLabel = { "5", "8", "23", "zw" };
+            string[] netLabel = { _netPrice5summary.ToString("F"), _netPrice8summary.ToString("F"), _netPrice23summary.ToString("F"), _netPriceFreeSummary.ToString("F") };
+            string[] grossLabel = { _grossPrice5summary.ToString("F"), _grossPrice8summary.ToString("F"), _grossPrice23summary.ToString("F"), _grossPriceFreeSummary.ToString("F") };
+            string[] taxLabel = { _tax5summary.ToString("F"), _tax8summary.ToString("F"), _tax23summary.ToString("F"), _taxFreeSummary.ToString("F") };
+            for (int i = 0; i <= 3; i++)
+            {
+                //--tabela summary
+                // wNet
+                RectangleF r6 = new RectangleF(499, y + 20, 72, 20);
+                e.Graphics.DrawRectangle(blackPen, 499, y + 20, 72, 20);
+                e.Graphics.DrawString(netLabel[i], drawFont, drawBrush, r6, digitFormat);
+                // %
+                RectangleF r7 = new RectangleF(571, y + 20, 24, 20);
+                e.Graphics.DrawRectangle(blackPen, 571, y + 20, 24, 20);
+                e.Graphics.DrawString(vatPercentLabel[i], drawFont, drawBrush, r7, digitFormat);
+                // taxVal
+                RectangleF r8 = new RectangleF(595, y + 20, 72, 20);
+                e.Graphics.DrawRectangle(blackPen, 595, y + 20, 72, 20);
+                e.Graphics.DrawString(taxLabel[i], drawFont, drawBrush, r8, digitFormat);
+                //GrossPr
+                RectangleF r9 = new RectangleF(667, y + 20, 108, 20);
+                e.Graphics.DrawRectangle(blackPen, 667, y + 20, 108, 20);
+                e.Graphics.DrawString(grossLabel[i], drawFont, drawBrush, r9, digitFormat);
+                y = y + 20;
+            }
+
+            return y;
         }
 
         private void CreateHeaderCreate(System.Drawing.Printing.PrintPageEventArgs e, string text)
@@ -319,7 +283,7 @@ namespace Shopper2019.Documents.View
             e.Graphics.DrawString(buyerDetails, drawFont, drawBrush, r2);
         }
 
-        private void CreateInvoiceDetailsHeaderCreate(System.Drawing.Printing.PrintPageEventArgs e)
+        public void CreateInvoiceDetailsHeaderCreate(System.Drawing.Printing.PrintPageEventArgs e)
         {
             StringFormat textFormat = new StringFormat();
             textFormat.Alignment = StringAlignment.Center;
@@ -383,7 +347,7 @@ namespace Shopper2019.Documents.View
             e.Graphics.DrawString("Wartość brutto (PLN)", drawFont, drawBrush, r9, textFormat);
         }
 
-        private void CreateRowCreate(System.Drawing.Printing.PrintPageEventArgs e, int y, string c1, string c2, string c3, string c4, string c5, string c6, string c7, string c8, string c9)
+        private void DrawRowCreate(System.Drawing.Printing.PrintPageEventArgs e, int y, string c1, string c2, string c3, string c4, string c5, string c6, string c7, string c8, string c9)
         {
             StringFormat textFormat = new StringFormat();
             textFormat.Alignment = StringAlignment.Near;
@@ -548,26 +512,6 @@ namespace Shopper2019.Documents.View
             RectangleF r1 = new RectangleF(15, 865, 760, 40);
             //e.Graphics.DrawRectangle(blackPen, 15, 865, 760, 40);
             e.Graphics.DrawString(commentText, drawFont, drawBrush, r1);
-        }
-
-        private void CreateSignatureSpace(System.Drawing.Printing.PrintPageEventArgs e)
-        {
-            System.Drawing.Font drawFont = new System.Drawing.Font("Arial", 6, FontStyle.Regular);
-
-            RectangleF r1 = new RectangleF(15, 1005, 240, 20);
-            //e.Graphics.DrawRectangle(blackPen, 15, 1005, 240, 20);
-            e.Graphics.DrawLine(blackPen, 15, 1005, 245, 1005);
-            e.Graphics.DrawString("podpis osoby upoważnionej do odbioru faktury VAT", drawFont, drawBrush, r1);
-
-            RectangleF r2 = new RectangleF(265, 1005, 160, 20);
-            //e.Graphics.DrawRectangle(blackPen, 265, 1005, 160, 20);
-            e.Graphics.DrawLine(blackPen, 250, 1005, 350, 1005);
-            e.Graphics.DrawString("data odbioru", drawFont, drawBrush, r2);
-
-            RectangleF r3 = new RectangleF(480, 1005, 280, 20);
-            //e.Graphics.DrawRectangle(blackPen, 520, 1005, 240, 20);
-            e.Graphics.DrawLine(blackPen, 480, 1005, 775, 1005);
-            e.Graphics.DrawString("podpis i pieczęć osoby upoważnionej do wystawienia faktury VAT", drawFont, drawBrush, r3);
         }
 
         private void CreateProductSignature(System.Drawing.Printing.PrintPageEventArgs e)

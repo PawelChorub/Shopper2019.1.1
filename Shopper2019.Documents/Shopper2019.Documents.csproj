@@ -88,6 +88,7 @@
       <DependentUpon>ReceiptDocument.cs</DependentUpon>
     </Compile>
     <Compile Include="Controllers\ReceiptProcessor.cs" />
+    <Compile Include="View\SignatureSpace.cs" />
     <EmbeddedResource Include="View\InvoiceDocument.resx">
       <DependentUpon>InvoiceDocument.cs</DependentUpon>
     </EmbeddedResource>
