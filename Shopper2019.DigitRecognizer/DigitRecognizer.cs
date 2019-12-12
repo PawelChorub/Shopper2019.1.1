@@ -9,6 +9,8 @@ namespace Shopper2019.DigitRecognizer
     public class DigitRecognizer
     {
         UnitNumberRecognize unitNumberRecognize = new UnitNumberRecognize();
+        TeenNumberRecognize teenNumberRecognize = new TeenNumberRecognize();
+
         public string EstimateTheNumberLength(string input)
         {
             string output = "";
@@ -40,50 +42,6 @@ namespace Shopper2019.DigitRecognizer
             return output;
         }
         //---------------------------------------------------
-        public string TeensNumberRecognizer(char input)
-        {
-            //wyjście sterowane jest cyfrą jednostkową
-            string output = "";
-
-            switch (input)
-            {
-                case '0':
-                    output = "dziesięć";
-                    break;
-                case '1':
-                    output = "jedenascie";
-                    break;
-                case '2':
-                    output = "dwanaście";
-                    break;
-                case '3':
-                    output = "trzynaście";
-                    break;
-                case '4':
-                    output = "czternaście";
-                    break;
-                case '5':
-                    output = "piętnaście";
-                    break;
-                case '6':
-                    output = "szesnaście";
-                    break;
-                case '7':
-                    output = "siedemnaście";
-                    break;
-                case '8':
-                    output = "osiemnaście";
-                    break;
-                case '9':
-                    output = "dziewiętnaście";
-                    break;
-                default:
-                    output = "";
-                    break;
-            }
-
-            return output;
-        }
         public string TensNumberRecognizer(char input)
         {
             string output = "";
@@ -243,7 +201,7 @@ namespace Shopper2019.DigitRecognizer
                 case "2":
                     if (zlotyDigit[0] == '1') // 1x,xx
                     {
-                        zlotyOutput = TeensNumberRecognizer(zlotyDigit[1]);
+                        zlotyOutput = teenNumberRecognize.TeensNumberRecognizer(zlotyDigit[1]);
                     }
                     else
                     {
@@ -253,7 +211,7 @@ namespace Shopper2019.DigitRecognizer
                 case "3":
                     if (zlotyDigit[1] == '1') // jeżeli jest jedynka na x1x,xx będzie nastka
                     {
-                        zlotyOutput = HundredsNumberRecognizer(zlotyDigit[0]) + " " + TeensNumberRecognizer(zlotyDigit[2]);
+                        zlotyOutput = HundredsNumberRecognizer(zlotyDigit[0]) + " " + teenNumberRecognize.TeensNumberRecognizer(zlotyDigit[2]);
                     }
                     else
                     {
@@ -263,7 +221,7 @@ namespace Shopper2019.DigitRecognizer
                 case "4":
                     if (zlotyDigit[2] == '1') //x.x1x,xx
                     {
-                        zlotyOutput = TousandsNumberRecognizer(zlotyDigit[0]) + " " + HundredsNumberRecognizer(zlotyDigit[1]) + " " + TeensNumberRecognizer(zlotyDigit[3]);
+                        zlotyOutput = TousandsNumberRecognizer(zlotyDigit[0]) + " " + HundredsNumberRecognizer(zlotyDigit[1]) + " " + teenNumberRecognize.TeensNumberRecognizer(zlotyDigit[3]);
                     }
                     else
                     {
@@ -273,16 +231,16 @@ namespace Shopper2019.DigitRecognizer
                 case "5":
                     if (zlotyDigit[0] == '1' && zlotyDigit[3] == '1') //1x.x1x,xx
                     {
-                        zlotyOutput = TeensNumberRecognizer(zlotyDigit[1]) + " tys. " + HundredsNumberRecognizer(zlotyDigit[2]) + " " + TeensNumberRecognizer(zlotyDigit[4]);
+                        zlotyOutput = teenNumberRecognize.TeensNumberRecognizer(zlotyDigit[1]) + " tys. " + HundredsNumberRecognizer(zlotyDigit[2]) + " " + teenNumberRecognize.TeensNumberRecognizer(zlotyDigit[4]);
                     }
                     else if (zlotyDigit[0] == '1') //1x.xxx,xx
                     {
-                        zlotyOutput = TeensNumberRecognizer(zlotyDigit[1]) + " tys. " + HundredsNumberRecognizer(zlotyDigit[2]) + " " + TensNumberRecognizer(zlotyDigit[3]) + " " + unitNumberRecognize.UnitsNumberRecognizer(zlotyDigit[4]);
+                        zlotyOutput = teenNumberRecognize.TeensNumberRecognizer(zlotyDigit[1]) + " tys. " + HundredsNumberRecognizer(zlotyDigit[2]) + " " + TensNumberRecognizer(zlotyDigit[3]) + " " + unitNumberRecognize.UnitsNumberRecognizer(zlotyDigit[4]);
                     }
                     // xx.x1x,xx
                     else if (zlotyDigit[3] == '1')
                     {
-                        zlotyOutput = TensNumberRecognizer(zlotyDigit[0]) + " " + unitNumberRecognize.UnitsNumberRecognizer(zlotyDigit[1]) + " " + HundredsNumberRecognizer(zlotyDigit[2]) + " " + TeensNumberRecognizer(zlotyDigit[4]);
+                        zlotyOutput = TensNumberRecognizer(zlotyDigit[0]) + " " + unitNumberRecognize.UnitsNumberRecognizer(zlotyDigit[1]) + " " + HundredsNumberRecognizer(zlotyDigit[2]) + " " + teenNumberRecognize.TeensNumberRecognizer(zlotyDigit[4]);
                     }
                     //xx.xxx,xx
                     else
@@ -293,16 +251,16 @@ namespace Shopper2019.DigitRecognizer
                 case "6":
                     if (zlotyDigit[1] == '1' && zlotyDigit[4] == '1') //x1x.x1x,xx
                     {
-                        zlotyOutput = HundredsNumberRecognizer(zlotyDigit[0]) + " " + TeensNumberRecognizer(zlotyDigit[2]) + " tys " + HundredsNumberRecognizer(zlotyDigit[3]) + " " + TeensNumberRecognizer(zlotyDigit[5]);
+                        zlotyOutput = HundredsNumberRecognizer(zlotyDigit[0]) + " " + teenNumberRecognize.TeensNumberRecognizer(zlotyDigit[2]) + " tys " + HundredsNumberRecognizer(zlotyDigit[3]) + " " + teenNumberRecognize.TeensNumberRecognizer(zlotyDigit[5]);
                     }
                     else if (zlotyDigit[1] == '1') //x1x.xxx,xx
                     {
-                        zlotyOutput = HundredsNumberRecognizer(zlotyDigit[0]) + " " + TeensNumberRecognizer(zlotyDigit[2]) + " tys * " + HundredsNumberRecognizer(zlotyDigit[3]) + " * " + TensNumberRecognizer(zlotyDigit[4]) + " * " + unitNumberRecognize.UnitsNumberRecognizer(zlotyDigit[5]);
+                        zlotyOutput = HundredsNumberRecognizer(zlotyDigit[0]) + " " + teenNumberRecognize.TeensNumberRecognizer(zlotyDigit[2]) + " tys * " + HundredsNumberRecognizer(zlotyDigit[3]) + " * " + TensNumberRecognizer(zlotyDigit[4]) + " * " + unitNumberRecognize.UnitsNumberRecognizer(zlotyDigit[5]);
                     }
                     // xxx.x1x,xx
                     else if (zlotyDigit[4] == '1')
                     {
-                        zlotyOutput = HundredsNumberRecognizer(zlotyDigit[0]) + " " + TensNumberRecognizer(zlotyDigit[1]) + " " + unitNumberRecognize.UnitsNumberRecognizer(zlotyDigit[2]) + " " + HundredsNumberRecognizer(zlotyDigit[3]) + " " + TeensNumberRecognizer(zlotyDigit[5]);
+                        zlotyOutput = HundredsNumberRecognizer(zlotyDigit[0]) + " " + TensNumberRecognizer(zlotyDigit[1]) + " " + unitNumberRecognize.UnitsNumberRecognizer(zlotyDigit[2]) + " " + HundredsNumberRecognizer(zlotyDigit[3]) + " " + teenNumberRecognize.TeensNumberRecognizer(zlotyDigit[5]);
                     }
                     //xx.xxx,xx
                     else
@@ -324,7 +282,7 @@ namespace Shopper2019.DigitRecognizer
                 case "2":
                     if (groshDigit[0] == '1') // 1x,xx
                     {
-                        groshOutput = TeensNumberRecognizer(groshDigit[1]);
+                        groshOutput = teenNumberRecognize.TeensNumberRecognizer(groshDigit[1]);
                     }
                     else
                     {
