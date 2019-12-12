@@ -39,7 +39,6 @@ namespace Shopper2019.Documents
             //ip.InvoiceList(_list ,b, v, i);
             ip.InvoiceListNew(_list, b, v, i);
 
-            // dodać funkcję przesyłającą dane klienta ze sklepu;
         }
     }
 }

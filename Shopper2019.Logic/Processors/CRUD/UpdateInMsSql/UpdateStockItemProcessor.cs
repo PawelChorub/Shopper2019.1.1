@@ -31,6 +31,7 @@ namespace Shopper2019.Logic.Processors.UpdateInMsSql
             sqlConnection.Close();
         }
 
+        // brakuje: aktualizacja ceny zakupu, jeśli jest inna, ew. podział na partie dostaw.
         public void IncreaseStockItemQuantity(string code, decimal quantity)
         {
             string specifier;

@@ -72,12 +72,6 @@
     <Compile Include="Models\IVendor.cs" />
     <Compile Include="Models\Receipt.cs" />
     <Compile Include="Models\Vendor.cs" />
-    <Compile Include="View\InvoiceDocumentNew.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="View\InvoiceDocumentNew.Designer.cs">
-      <DependentUpon>InvoiceDocumentNew.cs</DependentUpon>
-    </Compile>
     <Compile Include="View\InvoiceDocument.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -94,9 +88,6 @@
       <DependentUpon>ReceiptDocument.cs</DependentUpon>
     </Compile>
     <Compile Include="Controllers\ReceiptProcessor.cs" />
-    <EmbeddedResource Include="View\InvoiceDocumentNew.resx">
-      <DependentUpon>InvoiceDocumentNew.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="View\InvoiceDocument.resx">
       <DependentUpon>InvoiceDocument.cs</DependentUpon>
     </EmbeddedResource>
