@@ -13,37 +13,7 @@ namespace Shopper2019.DigitRecognizer
         TenNumberRecognize tenNumberRecognize = new TenNumberRecognize();
         HundredNumerRecognize hundredNumberRecognize = new HundredNumerRecognize();
         TousandNumberRecognize tousandNumberRecognize = new TousandNumberRecognize();
-
-        public string EstimateTheNumberLength(string input)
-        {
-            string output = "";
-            int length = input.Length;
-            switch (length)
-            {
-                case 1:
-                    output = "1";
-                    break;
-                case 2:
-                    output = "2";
-                    break;
-                case 3:
-                    output = "3";
-                    break;
-                case 4:
-                    output = "4";
-                    break;
-                case 5:
-                    output = "5";
-                    break;
-                case 6:
-                    output = "6";
-                    break;
-                default:
-                    output = "0";
-                    break;
-            }
-            return output;
-        }
+        EstimateNumberLength estimateNumberLength = new EstimateNumberLength();
 
         public string Run(string input)
         {
@@ -70,7 +40,7 @@ namespace Shopper2019.DigitRecognizer
 
             char[] zlotyDigit = zlotyToRecognize.ToCharArray();
 
-            switch (EstimateTheNumberLength(zlotyToRecognize))
+            switch (estimateNumberLength.CheckNumberLength(zlotyToRecognize))
             {
                 case "1":
                     zlotyOutput = unitNumberRecognize.UnitsNumberRecognizer(zlotyDigit[0]);
@@ -151,7 +121,7 @@ namespace Shopper2019.DigitRecognizer
 
             char[] groshDigit = groshToRecognize.ToCharArray();
 
-            switch (EstimateTheNumberLength(groshToRecognize))
+            switch (estimateNumberLength.CheckNumberLength(groshToRecognize))
             {
                 case "1":
                     groshOutput = unitNumberRecognize.UnitsNumberRecognizer(groshDigit[0]);
