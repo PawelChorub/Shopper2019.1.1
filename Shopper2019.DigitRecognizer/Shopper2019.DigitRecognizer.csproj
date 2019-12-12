@@ -54,6 +54,7 @@
     <Compile Include="DigitRecognizer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TeenNumberRecognize.cs" />
+    <Compile Include="TenNumberRecognize.cs" />
     <Compile Include="UnitNumberRecognize.cs" />
   </ItemGroup>
   <ItemGroup>

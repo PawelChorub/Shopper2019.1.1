@@ -10,6 +10,7 @@ namespace Shopper2019.DigitRecognizer
     {
         UnitNumberRecognize unitNumberRecognize = new UnitNumberRecognize();
         TeenNumberRecognize teenNumberRecognize = new TeenNumberRecognize();
+        TenNumberRecognize tenNumberRecognize = new TenNumberRecognize();
 
         public string EstimateTheNumberLength(string input)
         {
@@ -42,46 +43,6 @@ namespace Shopper2019.DigitRecognizer
             return output;
         }
         //---------------------------------------------------
-        public string TensNumberRecognizer(char input)
-        {
-            string output = "";
-
-            switch (input)
-            {
-                case '1':
-                    output = "dziesięć";
-                    break;
-                case '2':
-                    output = "dwadzieścia";
-                    break;
-                case '3':
-                    output = "trzydzieści";
-                    break;
-                case '4':
-                    output = "czterdzieści";
-                    break;
-                case '5':
-                    output = "pięćdziesiąt";
-                    break;
-                case '6':
-                    output = "sześćdziesiąt";
-                    break;
-                case '7':
-                    output = "siedemdziesiąt";
-                    break;
-                case '8':
-                    output = "osiemdziesiąt";
-                    break;
-                case '9':
-                    output = "dziewięćdziesiąt";
-                    break;
-                default:
-                    output = "";
-                    break;
-            }
-
-            return output;
-        }
         public string HundredsNumberRecognizer(char input)
         {
             string output = "";
@@ -205,7 +166,7 @@ namespace Shopper2019.DigitRecognizer
                     }
                     else
                     {
-                        zlotyOutput = TensNumberRecognizer(zlotyDigit[0]) + " " + unitNumberRecognize.UnitsNumberRecognizer(zlotyDigit[1]);
+                        zlotyOutput = tenNumberRecognize.TensNumberRecognizer(zlotyDigit[0]) + " " + unitNumberRecognize.UnitsNumberRecognizer(zlotyDigit[1]);
                     }
                     break;
                 case "3":
@@ -215,7 +176,7 @@ namespace Shopper2019.DigitRecognizer
                     }
                     else
                     {
-                        zlotyOutput = HundredsNumberRecognizer(zlotyDigit[0]) + " " + TensNumberRecognizer(zlotyDigit[1]) + " " + unitNumberRecognize.UnitsNumberRecognizer(zlotyDigit[2]);
+                        zlotyOutput = HundredsNumberRecognizer(zlotyDigit[0]) + " " + tenNumberRecognize.TensNumberRecognizer(zlotyDigit[1]) + " " + unitNumberRecognize.UnitsNumberRecognizer(zlotyDigit[2]);
                     }
                     break;
                 case "4":
@@ -225,7 +186,7 @@ namespace Shopper2019.DigitRecognizer
                     }
                     else
                     {
-                        zlotyOutput = TousandsNumberRecognizer(zlotyDigit[0]) + " " + HundredsNumberRecognizer(zlotyDigit[1]) + " " + TensNumberRecognizer(zlotyDigit[2]) + " " + unitNumberRecognize.UnitsNumberRecognizer(zlotyDigit[3]);
+                        zlotyOutput = TousandsNumberRecognizer(zlotyDigit[0]) + " " + HundredsNumberRecognizer(zlotyDigit[1]) + " " + tenNumberRecognize.TensNumberRecognizer(zlotyDigit[2]) + " " + unitNumberRecognize.UnitsNumberRecognizer(zlotyDigit[3]);
                     }
                     break;
                 case "5":
@@ -235,17 +196,17 @@ namespace Shopper2019.DigitRecognizer
                     }
                     else if (zlotyDigit[0] == '1') //1x.xxx,xx
                     {
-                        zlotyOutput = teenNumberRecognize.TeensNumberRecognizer(zlotyDigit[1]) + " tys. " + HundredsNumberRecognizer(zlotyDigit[2]) + " " + TensNumberRecognizer(zlotyDigit[3]) + " " + unitNumberRecognize.UnitsNumberRecognizer(zlotyDigit[4]);
+                        zlotyOutput = teenNumberRecognize.TeensNumberRecognizer(zlotyDigit[1]) + " tys. " + HundredsNumberRecognizer(zlotyDigit[2]) + " " + tenNumberRecognize.TensNumberRecognizer(zlotyDigit[3]) + " " + unitNumberRecognize.UnitsNumberRecognizer(zlotyDigit[4]);
                     }
                     // xx.x1x,xx
                     else if (zlotyDigit[3] == '1')
                     {
-                        zlotyOutput = TensNumberRecognizer(zlotyDigit[0]) + " " + unitNumberRecognize.UnitsNumberRecognizer(zlotyDigit[1]) + " " + HundredsNumberRecognizer(zlotyDigit[2]) + " " + teenNumberRecognize.TeensNumberRecognizer(zlotyDigit[4]);
+                        zlotyOutput = tenNumberRecognize.TensNumberRecognizer(zlotyDigit[0]) + " " + unitNumberRecognize.UnitsNumberRecognizer(zlotyDigit[1]) + " " + HundredsNumberRecognizer(zlotyDigit[2]) + " " + teenNumberRecognize.TeensNumberRecognizer(zlotyDigit[4]);
                     }
                     //xx.xxx,xx
                     else
                     {
-                        zlotyOutput = TensNumberRecognizer(zlotyDigit[0]) + " " + unitNumberRecognize.UnitsNumberRecognizer(zlotyDigit[1]) + " tys " + HundredsNumberRecognizer(zlotyDigit[2]) + " " + TensNumberRecognizer(zlotyDigit[3]) + " " + unitNumberRecognize.UnitsNumberRecognizer(zlotyDigit[4]);
+                        zlotyOutput = tenNumberRecognize.TensNumberRecognizer(zlotyDigit[0]) + " " + unitNumberRecognize.UnitsNumberRecognizer(zlotyDigit[1]) + " tys " + HundredsNumberRecognizer(zlotyDigit[2]) + " " + tenNumberRecognize.TensNumberRecognizer(zlotyDigit[3]) + " " + unitNumberRecognize.UnitsNumberRecognizer(zlotyDigit[4]);
                     }
                     break;
                 case "6":
@@ -255,17 +216,17 @@ namespace Shopper2019.DigitRecognizer
                     }
                     else if (zlotyDigit[1] == '1') //x1x.xxx,xx
                     {
-                        zlotyOutput = HundredsNumberRecognizer(zlotyDigit[0]) + " " + teenNumberRecognize.TeensNumberRecognizer(zlotyDigit[2]) + " tys * " + HundredsNumberRecognizer(zlotyDigit[3]) + " * " + TensNumberRecognizer(zlotyDigit[4]) + " * " + unitNumberRecognize.UnitsNumberRecognizer(zlotyDigit[5]);
+                        zlotyOutput = HundredsNumberRecognizer(zlotyDigit[0]) + " " + teenNumberRecognize.TeensNumberRecognizer(zlotyDigit[2]) + " tys * " + HundredsNumberRecognizer(zlotyDigit[3]) + " * " + tenNumberRecognize.TensNumberRecognizer(zlotyDigit[4]) + " * " + unitNumberRecognize.UnitsNumberRecognizer(zlotyDigit[5]);
                     }
                     // xxx.x1x,xx
                     else if (zlotyDigit[4] == '1')
                     {
-                        zlotyOutput = HundredsNumberRecognizer(zlotyDigit[0]) + " " + TensNumberRecognizer(zlotyDigit[1]) + " " + unitNumberRecognize.UnitsNumberRecognizer(zlotyDigit[2]) + " " + HundredsNumberRecognizer(zlotyDigit[3]) + " " + teenNumberRecognize.TeensNumberRecognizer(zlotyDigit[5]);
+                        zlotyOutput = HundredsNumberRecognizer(zlotyDigit[0]) + " " + tenNumberRecognize.TensNumberRecognizer(zlotyDigit[1]) + " " + unitNumberRecognize.UnitsNumberRecognizer(zlotyDigit[2]) + " " + HundredsNumberRecognizer(zlotyDigit[3]) + " " + teenNumberRecognize.TeensNumberRecognizer(zlotyDigit[5]);
                     }
                     //xx.xxx,xx
                     else
                     {
-                        zlotyOutput = HundredsNumberRecognizer(zlotyDigit[0]) + " " + TensNumberRecognizer(zlotyDigit[1]) + " " + unitNumberRecognize.UnitsNumberRecognizer(zlotyDigit[2]) + " tys " + HundredsNumberRecognizer(zlotyDigit[3]) + " " + TensNumberRecognizer(zlotyDigit[4]) + " " + unitNumberRecognize.UnitsNumberRecognizer(zlotyDigit[5]);
+                        zlotyOutput = HundredsNumberRecognizer(zlotyDigit[0]) + " " + tenNumberRecognize.TensNumberRecognizer(zlotyDigit[1]) + " " + unitNumberRecognize.UnitsNumberRecognizer(zlotyDigit[2]) + " tys " + HundredsNumberRecognizer(zlotyDigit[3]) + " " + tenNumberRecognize.TensNumberRecognizer(zlotyDigit[4]) + " " + unitNumberRecognize.UnitsNumberRecognizer(zlotyDigit[5]);
                     }
                     break;
                 default:
@@ -286,7 +247,7 @@ namespace Shopper2019.DigitRecognizer
                     }
                     else
                     {
-                        groshOutput = TensNumberRecognizer(groshDigit[0]) + " " + unitNumberRecognize.UnitsNumberRecognizer(groshDigit[1]);
+                        groshOutput = tenNumberRecognize.TensNumberRecognizer(groshDigit[0]) + " " + unitNumberRecognize.UnitsNumberRecognizer(groshDigit[1]);
                     }
                     break;
             }
