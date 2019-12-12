@@ -4,22 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Shopper2019.DigitRecognizer.Helpers
+namespace Shopper2019.DigitRecognizer
 {
-    public class HelperMethod
+    public class AmountSplit
     {
-        public void ZeroNumberRecognize(ref string groshOutput, ref string zlotyOutput, string zlotyToRecognize, string groshToRecognize)
-        {
-            if (zlotyToRecognize.Length == 1 && zlotyToRecognize == "0")
-            {
-                zlotyOutput = "zero";
-            }
-            if (groshToRecognize == "00")
-            {
-                groshOutput = "zero";
-            }
-        }
-
         public void SplitAmountByComma(ref string zlotyToRecognize, ref string groshToRecognize, string[] splitInput)
         {
             for (int i = 0; i < splitInput.Length; i++)
@@ -36,6 +24,5 @@ namespace Shopper2019.DigitRecognizer.Helpers
                 }
             }
         }
-
     }
 }
