@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Drawing.Printing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -9,7 +10,7 @@ namespace Shopper2019.Documents.View
 {
     public class InvoiceHeader
     {
-        public void CreateHeaderCreate(System.Drawing.Printing.PrintPageEventArgs e, string text)
+        public void CreateHeaderCreate(PrintPageEventArgs e, string text)
         {
             Pen blackPen = new Pen(Color.Black);
             SolidBrush drawBrush = new SolidBrush(Color.Black);

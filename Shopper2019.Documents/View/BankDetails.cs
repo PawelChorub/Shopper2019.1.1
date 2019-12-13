@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Drawing.Printing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -9,7 +10,7 @@ namespace Shopper2019.Documents.View
 {
     public class BankDetails
     {
-        public void CreateBankDetails(System.Drawing.Printing.PrintPageEventArgs e)
+        public void CreateBankDetails(PrintPageEventArgs e)
         {
             String bankName = "BZ WBK S.A.";
             String bankAccount = "12 1234 1456 0000 3250 0258 9639";

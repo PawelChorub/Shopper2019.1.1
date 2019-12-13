@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Drawing.Printing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,7 +12,7 @@ namespace Shopper2019.Documents.View
     {
         DigitRecognizer.DigitRecognizer digitRecognizer = new DigitRecognizer.DigitRecognizer();
 
-        public void CreateTotalAmount(System.Drawing.Printing.PrintPageEventArgs e, string amount)
+        public void CreateTotalAmount(PrintPageEventArgs e, string amount)
         {
             SolidBrush drawBrushLightGray = new SolidBrush(Color.LightGray);
             Pen blackPen = new Pen(Color.Black);
@@ -19,10 +20,10 @@ namespace Shopper2019.Documents.View
 
             //String amount = "1234,25";
             String amountInWords = digitRecognizer.Run(amount);
-            System.Drawing.Font drawFont = new System.Drawing.Font("Arial", 10, FontStyle.Regular);
-            System.Drawing.Font drawFontBold = new System.Drawing.Font("Arial", 10, FontStyle.Bold);
-            System.Drawing.Font drawFontBoldBig = new System.Drawing.Font("Arial", 18, FontStyle.Bold);
-            System.Drawing.Font drawFontSmall = new System.Drawing.Font("Arial", 8, FontStyle.Regular);
+            Font drawFont = new Font("Arial", 10, FontStyle.Regular);
+            Font drawFontBold = new Font("Arial", 10, FontStyle.Bold);
+            Font drawFontBoldBig = new Font("Arial", 18, FontStyle.Bold);
+            Font drawFontSmall = new Font("Arial", 8, FontStyle.Regular);
 
             RectangleF r1 = new RectangleF(15, 795, 120, 40);
             e.Graphics.FillRectangle(drawBrushLightGray, 15, 785, 120, 40);

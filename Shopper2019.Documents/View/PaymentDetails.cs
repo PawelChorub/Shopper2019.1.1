@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Drawing.Printing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -9,7 +10,7 @@ namespace Shopper2019.Documents.View
 {
     public class PaymentDetails
     {
-        public void CreatePaymentDetails(System.Drawing.Printing.PrintPageEventArgs e)
+        public void CreatePaymentDetails(PrintPageEventArgs e)
         {
             String paymentMethod = "przelew";
             String paymentDeadline = "19-06-2019";
