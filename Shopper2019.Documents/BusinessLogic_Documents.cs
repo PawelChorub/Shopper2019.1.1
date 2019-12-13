@@ -36,7 +36,6 @@ namespace Shopper2019.Documents
             b.BuyerStreetNumber = streetNumber;
             b.BuyerTaxNumber = taxNumber;
 
-            //ip.InvoiceList(_list ,b, v, i);
             ip.InvoiceListNew(_list, b, v, i);
 
         }

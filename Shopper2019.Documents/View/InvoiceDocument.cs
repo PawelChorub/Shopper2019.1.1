@@ -3,6 +3,7 @@ using Shopper2019.Logic.Models;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Drawing.Printing;
 using System.Linq;
 using System.Windows.Forms;
 
@@ -26,7 +27,6 @@ namespace Shopper2019.Documents.View
         private SolidBrush drawBrushLightGray = new SolidBrush(Color.LightGray);
         private SolidBrush drawBrushTransparent = new SolidBrush(Color.Transparent);
 
-        //wejście listy rzeczy sprzedanych
         private List<ISaleItem> InvoiceItems = new List<ISaleItem>();
 
         public void InvoiceListData(List<ISaleItem> _list)
@@ -37,14 +37,12 @@ namespace Shopper2019.Documents.View
             }
         }
 
-        //sprzedawca
         private IVendor _vendor;
         public void InvoiceVendor(IVendor vendor)
         {
             _vendor = vendor;
         }
 
-        //kupujący
         private IBuyer _buyer;
         public void InvoiceBuyer(IBuyer buyer)
         {
@@ -58,8 +56,7 @@ namespace Shopper2019.Documents.View
         //    InvoiceNumberLbl.Text = "Faktura VAT nr: " + (invoice.InvoiceNumber++).ToString() + "/" + invoice.InvoiceNumberYear;
         //}
 
-
-        private void InvoicePrintingProcessor(System.Drawing.Printing.PrintPageEventArgs e)
+        private void InvoicePrintingProcessor(PrintPageEventArgs e)
         {
             decimal totalAmount = 0;
             //podsumowanie w stawkach VAT
@@ -78,11 +75,13 @@ namespace Shopper2019.Documents.View
 
             //----------------------------------------------------------------------
             string[] _cell = new string[9];
+
             DrawRow drawRow = new DrawRow();
             void RowCreate(int y, string[] cell)
             {
                 drawRow.DrawRowCreate(e, y, cell);
             }
+
             void RowCreateProcessor()
             {
                 // max input = 17 rows
@@ -108,11 +107,11 @@ namespace Shopper2019.Documents.View
 
                     RowCreate(yPoint, _cell);
 
-
                     //sumowanie FV
                     totalAmount += data.TotalGross_Price;
 
-                    InvoiceSummaryMethod(data.VatValue, (((data.Net_Price * data.VatValue) / 100) * data.SaleQuantity),
+                    InvoiceSummaryMethod(data.VatValue, 
+                        (((data.Net_Price * data.VatValue) / 100) * data.SaleQuantity),
                         data.Net_Price * data.SaleQuantity,
                         data.Gross_Price * data.SaleQuantity);
                     //--koniec linii
@@ -191,10 +190,10 @@ namespace Shopper2019.Documents.View
             productSignature.CreateProductSignature(e);
         }
 
-        private int CreateInvoiceSummary(System.Drawing.Printing.PrintPageEventArgs e, int y, string _totalAmount, decimal _taxFreeSummary, decimal _tax5summary, decimal _tax8summary, decimal _tax23summary, decimal _netPrice5summary, decimal _netPrice8summary, decimal _netPrice23summary, decimal _netPriceFreeSummary, decimal _grossPrice5summary, decimal _grossPrice8summary, decimal _grossPrice23summary, decimal _grossPriceFreeSummary)
+        private int CreateInvoiceSummary(PrintPageEventArgs e, int y, string _totalAmount, decimal _taxFreeSummary, decimal _tax5summary, decimal _tax8summary, decimal _tax23summary, decimal _netPrice5summary, decimal _netPrice8summary, decimal _netPrice23summary, decimal _netPriceFreeSummary, decimal _grossPrice5summary, decimal _grossPrice8summary, decimal _grossPrice23summary, decimal _grossPriceFreeSummary)
         {
             //String inputText = text;
-            System.Drawing.Font drawFont = new System.Drawing.Font("Arial", 10, FontStyle.Regular);
+            Font drawFont = new System.Drawing.Font("Arial", 10, FontStyle.Regular);
             StringFormat digitFormat = new StringFormat();
             digitFormat.Alignment = StringAlignment.Far;
 
@@ -240,10 +239,8 @@ namespace Shopper2019.Documents.View
             return y;
         }
 
-
         private void PrintDocumentInvoice_PrintPage(object sender, System.Drawing.Printing.PrintPageEventArgs e)
         {
-            // Rysowanie do wydruku
             InvoicePrintingProcessor(e);
         }
 
@@ -252,12 +249,9 @@ namespace Shopper2019.Documents.View
         }
         private void Button1_Click(object sender, EventArgs e)
         {
-            // wywolanie
-            //// wybor druk/pdf
             printPreviewDialogInvoice.Document = printDocumentInvoice;
             printDialogInvoice.ShowDialog();
 
-            // podglad
             printDialogInvoice.Document = printDocumentInvoice;
             printPreviewDialogInvoice.Show();
             this.Close();
