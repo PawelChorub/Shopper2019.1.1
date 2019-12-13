@@ -9,6 +9,7 @@ namespace Shopper2019.Documents.View
 {
     public class SignatureSpace
     {
+
         public void CreateSignatureSpace(System.Drawing.Printing.PrintPageEventArgs e)
         {
             Pen blackPen = new Pen(Color.Black);
