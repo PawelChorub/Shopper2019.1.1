@@ -77,12 +77,11 @@ namespace Shopper2019.Documents.View
             decimal _grossPriceFreeSummary = 0;
 
             //----------------------------------------------------------------------
-            //string[] cell = new string[9];
-            // tablica stringów c1...c9
+            string[] _cell = new string[9];
             DrawRow drawRow = new DrawRow();
-            void RowCreate(int y, string c1, string c2, string c3, string c4, string c5, string c6, string c7, string c8, string c9)
+            void RowCreate(int y, string[] cell)
             {
-                drawRow.DrawRowCreate(e, y, c1, c2, c3, c4, c5, c6, c7, c8, c9);
+                drawRow.DrawRowCreate(e, y, cell);
             }
             void RowCreateProcessor()
             {
@@ -97,17 +96,18 @@ namespace Shopper2019.Documents.View
                     var data = InvoiceItems.ElementAt(i - 1);
                     int x = startAnchor.X;
 
-                    RowCreate(
-                        yPoint,
-                        i.ToString(),
-                        data.Code + " / " + data.Name,
-                        data.SaleQuantity.ToString(),
-                        data.UnitOfMeasurements,
-                        data.Net_Price.ToString(),
-                        (data.Net_Price * data.SaleQuantity).ToString("F"),
-                        data.VatValue.ToString(),
-                        ((data.Net_Price * data.VatValue) / 100).ToString("F"),
-                        data.TotalGross_Price.ToString("F"));
+                    _cell[0] = i.ToString();
+                    _cell[1] = data.Code + " / " + data.Name;
+                    _cell[2] = data.SaleQuantity.ToString();
+                    _cell[3] = data.UnitOfMeasurements;
+                    _cell[4] = data.Net_Price.ToString();
+                    _cell[5] = (data.Net_Price * data.SaleQuantity).ToString("F");
+                    _cell[6] = data.VatValue.ToString();
+                    _cell[7] = ((data.Net_Price * data.VatValue) / 100).ToString("F");
+                    _cell[8] = data.TotalGross_Price.ToString("F");
+
+                    RowCreate(yPoint, _cell);
+
 
                     //sumowanie FV
                     totalAmount += data.TotalGross_Price;
@@ -121,6 +121,7 @@ namespace Shopper2019.Documents.View
                     yPoint = startAnchor.Y + (20 * (rowMultiplier));
                 }
             }
+
             InvoiceSummaryProcessor invoiceSummaryProcessor = new InvoiceSummaryProcessor();
             void InvoiceSummaryMethod(int? tax, decimal taxValue, decimal netPrice, decimal grossPrice)
             {
