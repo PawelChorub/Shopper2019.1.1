@@ -3,9 +3,6 @@ using Shopper2019.Documents.Models;
 using Shopper2019.Logic.Models;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Shopper2019.Documents
 {

@@ -1,15 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Drawing;
 
 namespace Shopper2019.Documents
 {
     public class DrawRow
     {
-        public void DrawRowCreate(System.Drawing.Printing.PrintPageEventArgs e, int y, string[] cell/*string c1, string c2, string c3, string c4, string c5, string c6, string c7, string c8, string c9*/)
+        public void DrawRowCreate(System.Drawing.Printing.PrintPageEventArgs e, int y, string[] cell)
         {
             Pen blackPen = new Pen(Color.Black);
             SolidBrush drawBrush = new SolidBrush(Color.Black);
@@ -20,7 +15,7 @@ namespace Shopper2019.Documents
             StringFormat digitFormat = new StringFormat();
             digitFormat.Alignment = StringAlignment.Far;
 
-            System.Drawing.Font drawFont = new System.Drawing.Font("Arial", 10, FontStyle.Regular);
+            Font drawFont = new Font("Arial", 10, FontStyle.Regular);
             // kolejna
             RectangleF r1 = new RectangleF(15, y, 24, 20);
             e.Graphics.DrawRectangle(blackPen, 15, y, 24, 20);
