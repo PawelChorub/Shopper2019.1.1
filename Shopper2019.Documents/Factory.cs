@@ -1,4 +1,5 @@
-﻿using Shopper2019.Documents.Controllers;
+﻿using Autofac;
+using Shopper2019.Documents.Controllers;
 using Shopper2019.Documents.Models;
 using System;
 using System.Collections.Generic;
@@ -8,34 +9,21 @@ using System.Threading.Tasks;
 
 namespace Shopper2019.Documents
 {
-    public class Factory
+    public static class Factory
     {
-        public static IReceiptProcessor CreateReceiptProcessor()
+        public static IContainer Config()
         {
-            return new ReceiptProcessor();
-        }
-        public static IReceipt CreateReceipt()
-        {
-            return new Receipt();
-        }
-        //-----------------FV
-        public static IInvoice CreateInvoice()
-        {
-            return new Invoice();
-        }
-        public static IInvoiceProcessor CreateInvoiceProcessor()
-        {
-            return new InvoiceProcessor();
-        }
-        //--------------klient
-        public static IBuyer CreateBuyer()
-        {
-            return new Buyer();
-        }
-        public static IVendor CreateVendor()
-        {
-            return new Vendor();
-        }
+            var builder = new ContainerBuilder();
 
+            builder.RegisterType<ReceiptProcessor>().As<IReceiptProcessor>();
+            builder.RegisterType<Receipt>().As<IReceipt>();
+            builder.RegisterType<Invoice>().As<IInvoice>();
+            builder.RegisterType<InvoiceProcessor>().As<IInvoiceProcessor>();
+            builder.RegisterType<Buyer>().As<IBuyer>();
+            builder.RegisterType<Vendor>().As<IVendor>();
+
+
+            return builder.Build();
+        }
     }
 }

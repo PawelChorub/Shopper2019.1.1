@@ -1,4 +1,5 @@
-﻿using Shopper2019.Documents.Controllers;
+﻿using Autofac;
+using Shopper2019.Documents.Controllers;
 using Shopper2019.Documents.Models;
 using Shopper2019.Logic.Models;
 using System;
@@ -11,33 +12,43 @@ namespace Shopper2019.Documents
 {
     public class BusinessLogic_Documents : IBusinessLogic_Documents
     {
+        IContainer container;
 
-        IReceiptProcessor rp = Factory.CreateReceiptProcessor();
+        IReceiptProcessor receiptProcessor;
+        IInvoiceProcessor invoiceProcessor;
+        IVendor vendor;
+        IBuyer buyer;
+        IInvoice invoice;
+
+        public BusinessLogic_Documents()
+        {
+            container = Factory.Config();
+
+            receiptProcessor = container.Resolve<IReceiptProcessor>();
+            invoiceProcessor = container.Resolve<IInvoiceProcessor>();
+            vendor = container.Resolve<IVendor>();
+            buyer = container.Resolve<IBuyer>();
+            invoice = container.Resolve<IInvoice>();
+        }
+
 
         public void ReceiptDetailsBuilder(List<ISaleItem> _list)
         {
-            rp.ReceiptBuilder(_list);
-            rp.ReceiptView();
+            receiptProcessor.ReceiptBuilder(_list);
+            receiptProcessor.ReceiptView();
         }
 
-        IInvoiceProcessor ip = Factory.CreateInvoiceProcessor();
         
         public void InvoiceDetailsBuilder(List<ISaleItem> _list, string name, string postCode, string city, string street, string streetNumber, string taxNumber)
         {
-            IVendor v = Factory.CreateVendor(); // dane z modelu
-            IBuyer b = Factory.CreateBuyer();
-            IInvoice i = Factory.CreateInvoice(); // dane z modelu
-            // dodac model obsługujący płatności!
+            buyer.BuyerName = name;
+            buyer.BuyerPostCode = postCode;
+            buyer.BuyerCity = city;
+            buyer.BuyerStreet = street;
+            buyer.BuyerStreetNumber = streetNumber;
+            buyer.BuyerTaxNumber = taxNumber;
 
-            b.BuyerName = name;
-            b.BuyerPostCode = postCode;
-            b.BuyerCity = city;
-            b.BuyerStreet = street;
-            b.BuyerStreetNumber = streetNumber;
-            b.BuyerTaxNumber = taxNumber;
-
-            ip.InvoiceListNew(_list, b, v, i);
-
+            invoiceProcessor.InvoiceListNew(_list, buyer, vendor, invoice);
         }
     }
 }
