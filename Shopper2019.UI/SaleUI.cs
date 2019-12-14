@@ -16,14 +16,19 @@ namespace Shopper2019.UI
     public partial class SaleUI : Form
     {
         IContainer container;
+        IContainer container_Documents;
         ISaleBusinessLogic saleBusinessLogic;
+        IBusinessLogic_Documents businessLogic_Documents;
 
         public SaleUI()
         {
             InitializeComponent();
 
             container = Logic.DI_Container.Configure();
+            container_Documents = Documents.DI_Container.Config();
+
             saleBusinessLogic = container.Resolve<ISaleBusinessLogic>();
+            businessLogic_Documents = container_Documents.Resolve<IBusinessLogic_Documents>();
 
             SaleInit();
         }
@@ -213,15 +218,13 @@ namespace Shopper2019.UI
                 //-------------- wydruk
                 try
                 {
-                    IBusinessLogic_Documents dbl = DependencyContainer_Documents.BusinessLogic_DocumentsInject();
-
                     if (IsInvoiceRequired)
                     {
-                        dbl.InvoiceDetailsBuilder(saleBusinessLogic.ReturnSaleItemList(), BuyerNameTb.Text, BuyerPostCodeTb.Text, BuyerCityTb.Text, BuyerStreetTb.Text, BuyerStreetNumberTb.Text, BuyerTaxNumber.Text);
+                        businessLogic_Documents.InvoiceDetailsBuilder(saleBusinessLogic.ReturnSaleItemList(), BuyerNameTb.Text, BuyerPostCodeTb.Text, BuyerCityTb.Text, BuyerStreetTb.Text, BuyerStreetNumberTb.Text, BuyerTaxNumber.Text);
                     }
                     else
                     {
-                        dbl.ReceiptDetailsBuilder(saleBusinessLogic.ReturnSaleItemList());
+                        businessLogic_Documents.ReceiptDetailsBuilder(saleBusinessLogic.ReturnSaleItemList());
                     }
                     saleBusinessLogic.NewSaleItemList();
 

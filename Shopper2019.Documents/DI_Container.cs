@@ -38,6 +38,8 @@ namespace Shopper2019.Documents
             builder.RegisterType<VendorAndBuyerDetail>().AsSelf();
             builder.RegisterType<VendorAndBuyerHeader>().AsSelf();
 
+            builder.RegisterType<BusinessLogic_Documents>().As<IBusinessLogic_Documents>();
+
             builder.RegisterType<TaxSummary>().AsSelf();
             builder.RegisterType<DrawRow>().AsSelf();
 

@@ -31,14 +31,12 @@ namespace Shopper2019.Documents
             invoice = container.Resolve<IInvoice>();
         }
 
-
         public void ReceiptDetailsBuilder(List<ISaleItem> _list)
         {
             receiptProcessor.ReceiptBuilder(_list);
             receiptProcessor.ReceiptView();
         }
-
-        
+       
         public void InvoiceDetailsBuilder(List<ISaleItem> _list, string name, string postCode, string city, string street, string streetNumber, string taxNumber)
         {
             buyer.BuyerName = name;

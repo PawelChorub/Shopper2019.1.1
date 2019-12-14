@@ -61,7 +61,6 @@
     <Compile Include="BusinessLogic_Documents.cs" />
     <Compile Include="Controllers\IInvoiceProcessor.cs" />
     <Compile Include="Controllers\InvoiceProcessor.cs" />
-    <Compile Include="DependencyContainer_Documents.cs" />
     <Compile Include="DrawRow.cs" />
     <Compile Include="DI_Container.cs" />
     <Compile Include="IBusinessLogic_Documents.cs" />
