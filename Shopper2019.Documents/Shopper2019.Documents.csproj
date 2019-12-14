@@ -63,7 +63,7 @@
     <Compile Include="Controllers\InvoiceProcessor.cs" />
     <Compile Include="DependencyContainer_Documents.cs" />
     <Compile Include="DrawRow.cs" />
-    <Compile Include="Factory.cs" />
+    <Compile Include="DI_Container.cs" />
     <Compile Include="IBusinessLogic_Documents.cs" />
     <Compile Include="InvoiceSummaryProcessor.cs" />
     <Compile Include="Models\Buyer.cs" />

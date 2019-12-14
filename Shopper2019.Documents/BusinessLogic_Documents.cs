@@ -22,7 +22,7 @@ namespace Shopper2019.Documents
 
         public BusinessLogic_Documents()
         {
-            container = Factory.Config();
+            container = DI_Container.Config();
 
             receiptProcessor = container.Resolve<IReceiptProcessor>();
             invoiceProcessor = container.Resolve<IInvoiceProcessor>();

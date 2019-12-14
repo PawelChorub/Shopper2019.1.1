@@ -22,7 +22,7 @@ namespace Shopper2019.UI
         {
             InitializeComponent();
 
-            container = DI_Container.Configure();
+            container = Logic.DI_Container.Configure();
             saleBusinessLogic = container.Resolve<ISaleBusinessLogic>();
 
             SaleInit();

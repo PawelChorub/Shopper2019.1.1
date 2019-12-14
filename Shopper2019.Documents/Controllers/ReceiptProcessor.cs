@@ -14,7 +14,7 @@ namespace Shopper2019.Documents
 
         public ReceiptProcessor()
         {
-            container = Factory.Config();
+            container = DI_Container.Config();
 
             receipt = container.Resolve<IReceipt>();
         }

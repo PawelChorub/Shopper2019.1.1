@@ -1,4 +1,5 @@
-﻿using Shopper2019.Documents.Models;
+﻿using Autofac;
+using Shopper2019.Documents.Models;
 using Shopper2019.Logic.Models;
 using System;
 using System.Collections.Generic;
@@ -11,8 +12,46 @@ namespace Shopper2019.Documents.View
 {
     public partial class InvoiceDocument : Form
     {
+        IContainer container;
+
+        MainWorkFrame mainWorkFrame;
+        InvoiceHeader invoiceHeader;
+        InvoiceNumber invoiceNumber;
+        VendorAndBuyerHeader vendorAndBuyerHeader;
+        VendorAndBuyerDetail vendorAndBuyerDetail;
+        InvoiceDetailHeader invoiceDetailHeader;
+        TotalAmountProcessor totalAmountProcessor;
+        PaymentDetails paymentDetails;
+        BankDetails bankDetails;
+        CommentSpace commentSpace;
+        SignatureSpace signatureSpace;
+        ProductSignature productSignature;
+        InvoiceSummaryProcessor invoiceSummaryProcessor;
+
+        TaxSummary taxSummary;
+        DrawRow drawRow;
+
+
         public InvoiceDocument()
         {
+            container = DI_Container.Config();
+
+            mainWorkFrame = container.Resolve<MainWorkFrame>();
+            invoiceHeader = container.Resolve<InvoiceHeader>();
+            invoiceNumber = container.Resolve<InvoiceNumber>();
+            vendorAndBuyerHeader = container.Resolve<VendorAndBuyerHeader>();
+            vendorAndBuyerDetail = container.Resolve<VendorAndBuyerDetail>();
+            invoiceDetailHeader = container.Resolve<InvoiceDetailHeader>();
+            totalAmountProcessor = container.Resolve<TotalAmountProcessor>();
+            paymentDetails = container.Resolve<PaymentDetails>();
+            bankDetails = container.Resolve<BankDetails>();
+            commentSpace = container.Resolve<CommentSpace>();
+            signatureSpace = container.Resolve<SignatureSpace>();
+            productSignature = container.Resolve<ProductSignature>();
+            invoiceSummaryProcessor = container.Resolve<InvoiceSummaryProcessor>();
+            taxSummary = container.Resolve<TaxSummary>();
+            drawRow = container.Resolve<DrawRow>();
+
             InitializeComponent();
         }
 
@@ -59,14 +98,9 @@ namespace Shopper2019.Documents.View
         private void InvoicePrintingProcessor(PrintPageEventArgs e)
         {
             decimal totalAmount = 0;
-            TaxSummary taxSummary = new TaxSummary();
 
-            
-
-            //----------------------------------------------------------------------
             string[] _cell = new string[9];
 
-            DrawRow drawRow = new DrawRow();
             void RowCreate(int y, string[] cell)
             {
                 drawRow.DrawRowCreate(e, y, cell);
@@ -111,7 +145,6 @@ namespace Shopper2019.Documents.View
                 }
             }
 
-            InvoiceSummaryProcessor invoiceSummaryProcessor = new InvoiceSummaryProcessor();
             void InvoiceSummaryMethod(int? tax, decimal taxValue, decimal netPrice, decimal grossPrice)
             {
                 invoiceSummaryProcessor.CreateInvoiceSummaryProcessor(tax, taxValue, netPrice, grossPrice, ref taxSummary);
@@ -124,59 +157,47 @@ namespace Shopper2019.Documents.View
 
             //---------------------------------------------------------------------
             //Rysowanie obszaru roboczego
-            MainWorkFrame mainWorkFrame = new MainWorkFrame();
             e.Graphics.DrawRectangle(new Pen(Color.Black), mainWorkFrame.CreateMainWorkFrame());
             //-Logo, Daty
-            InvoiceHeader invoiceHeader = new InvoiceHeader();
             invoiceHeader.CreateHeaderCreate(e, "Częstochowa, " + DateTime.Now.ToShortDateString());
 
             //-numeracja
-            InvoiceNumber invoiceNumber = new InvoiceNumber();
             invoiceNumber.CreateInvoiceNumberCreate(e, "125364");
 
             //-sprzed/kupuj
-            VendorAndBuyerHeader vendorAndBuyerHeader = new VendorAndBuyerHeader();
             vendorAndBuyerHeader.CreateVendorAndBuyerCreate(e);
 
             //-dane sprzed - kupuj
-            VendorAndBuyerDetail vendorAndBuyerDetail = new VendorAndBuyerDetail();
             vendorAndBuyerDetail.CreateVendorAndBuyerDetailsCreate(e, _vendor, _buyer);
 
             //-tabela
-            InvoiceDetailHeader invoiceDetailHeader = new InvoiceDetailHeader();
             invoiceDetailHeader.CreateInvoiceDetailsHeaderCreate(e);
 
+            //===============================================================
             //----Obsługa tabeli rozszerzalnej
-            //=====================================
             RowCreateProcessor();
             //----Obsługa tabeli rozszerzalnej koniec
 
             //-podsumowanie
             InvoiceSummary(endAnchor.Y, totalAmount.ToString("F"));
-            //=====================================
+            //===============================================================
 
             //-kwota do zapl
-            TotalAmountProcessor totalAmountProcessor = new TotalAmountProcessor();
             totalAmountProcessor.CreateTotalAmount(e, totalAmount.ToString("F"));
 
             //-płatności
-            PaymentDetails paymentDetails = new PaymentDetails();
             paymentDetails.CreatePaymentDetails(e);
 
             //-bank
-            BankDetails bankDetails = new BankDetails();
             bankDetails.CreateBankDetails(e);
 
             //-uwagi
-            CommentSpace commentSpace = new CommentSpace();
             commentSpace.CreateCommentSpace(e, "Towar dostarczony transportem nabywcy.");
 
             //-podpisy
-            SignatureSpace signatureSpace = new SignatureSpace();
             signatureSpace.CreateSignatureSpace(e);
 
             //-linia kończąca
-            ProductSignature productSignature = new ProductSignature();
             productSignature.CreateProductSignature(e);
         }
 
@@ -229,14 +250,13 @@ namespace Shopper2019.Documents.View
             return y;
         }
 
-        private void PrintDocumentInvoice_PrintPage(object sender, System.Drawing.Printing.PrintPageEventArgs e)
+        private void PrintDocumentInvoice_PrintPage(object sender, PrintPageEventArgs e)
         {
             InvoicePrintingProcessor(e);
         }
 
-        private void PrintPreviewDialogInvoice_Load(object sender, EventArgs e)
-        {
-        }
+        private void PrintPreviewDialogInvoice_Load(object sender, EventArgs e) { }
+
         private void Button1_Click(object sender, EventArgs e)
         {
             printPreviewDialogInvoice.Document = printDocumentInvoice;
