@@ -12,26 +12,11 @@ namespace Shopper2019.Documents.Controllers
 {
     public class InvoiceProcessor :IInvoiceProcessor /*IBuyer*/// IVendor
     {
-        //public void InvoiceList(List<ISaleItem> list, IBuyer buyer, IVendor vendor, IInvoice invoice)
-        //{
-        //    InvoiceDocument i = new InvoiceDocument();
-
-        //    i.InvoiceOrder(invoice);
-
-        //    i.InvoiceVendor(vendor);
-
-        //    i.InvoiceBuyer(buyer);
-
-        //    i.InvoiceListData(list);
-
-        //    i.Show();
-
-        //}
         public void InvoiceListNew(List<ISaleItem> list, IBuyer buyer, IVendor vendor, IInvoice invoice)
         {
-            InvoiceDocumentNew i = new InvoiceDocumentNew();
+            InvoiceDocument i = new InvoiceDocument();
 
-            //i.InvoiceOrder(invoice); // furtka do numeracji, po odczycie z bazy danych
+            //i.InvoiceOrder(invoice); // wyjście do numeracji, po odczycie z bazy danych
 
             i. InvoiceVendor(vendor);
 

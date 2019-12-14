@@ -46,7 +46,7 @@ namespace Shopper2019.UI
 
         private void button1_Click(object sender, EventArgs e)
         {
-            InvoiceDocumentNew inv = new InvoiceDocumentNew();
+            InvoiceDocument inv = new InvoiceDocument();
             inv.Show();
         }
     }
