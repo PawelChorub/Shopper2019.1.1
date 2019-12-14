@@ -6,6 +6,7 @@ using System.Linq;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace Shopper2019.CurrencyRate
 {
@@ -16,27 +17,34 @@ namespace Shopper2019.CurrencyRate
 
         public async Task<List<ICurrency>> GetCurrencyRateList()
         {
-            CurrencyRateList = new List<ICurrency>();
-
-            RootObject data;
-            for (int i = 0; i < currencyName.Names.Length; i++)
+            try
             {
-                using (var httpClient = new HttpClient())
+                CurrencyRateList = new List<ICurrency>();
+
+                RootObject data;
+                for (int i = 0; i < currencyName.Names.Length; i++)
                 {
-                    string url = "http://api.nbp.pl/api/exchangerates/rates/a/" + currencyName.Names[i] + "//?format=json";
-
-                    var json = await httpClient.GetStringAsync(url);
-
-                    data = JsonConvert.DeserializeObject<RootObject>(json);
-
-                    CurrencyRateList.Add(new Currency
+                    using (var httpClient = new HttpClient())
                     {
-                        Name = data.currency.ToString(),
-                        Rate = data.rates[0].mid.ToString()
-                    });
+                        string url = "http://api.nbp.pl/api/exchangerates/rates/a/" + currencyName.Names[i] + "//?format=json";
+
+                        var json = await httpClient.GetStringAsync(url);
+
+                        data = JsonConvert.DeserializeObject<RootObject>(json);
+
+                        CurrencyRateList.Add(new Currency
+                        {
+                            Name = data.currency.ToString(),
+                            Rate = data.rates[0].mid.ToString()
+                        });
+                    }
                 }
             }
-            return CurrencyRateList;
+            catch (Exception ex)
+            {
+                MessageBox.Show("Nieudana próba pobrania aktualnych kursów walut. Szczegóły : /n" + ex.ToString());
+            }
+                return CurrencyRateList;
         }
         //public async void GetCurrencyRate()
         //{

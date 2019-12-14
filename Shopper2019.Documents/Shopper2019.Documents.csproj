@@ -61,9 +61,10 @@
     <Compile Include="BusinessLogic_Documents.cs" />
     <Compile Include="Controllers\IInvoiceProcessor.cs" />
     <Compile Include="Controllers\InvoiceProcessor.cs" />
-    <Compile Include="DependencyContainer_Documents.cs" />
-    <Compile Include="Factory.cs" />
+    <Compile Include="DrawRow.cs" />
+    <Compile Include="DI_Container.cs" />
     <Compile Include="IBusinessLogic_Documents.cs" />
+    <Compile Include="InvoiceSummaryProcessor.cs" />
     <Compile Include="Models\Buyer.cs" />
     <Compile Include="Models\IBuyer.cs" />
     <Compile Include="Models\IInvoice.cs" />
@@ -71,13 +72,11 @@
     <Compile Include="Models\IReceipt.cs" />
     <Compile Include="Models\IVendor.cs" />
     <Compile Include="Models\Receipt.cs" />
+    <Compile Include="Models\TaxSummary.cs" />
     <Compile Include="Models\Vendor.cs" />
-    <Compile Include="View\InvoiceDocumentNew.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="View\InvoiceDocumentNew.Designer.cs">
-      <DependentUpon>InvoiceDocumentNew.cs</DependentUpon>
-    </Compile>
+    <Compile Include="View\BankDetails.cs" />
+    <Compile Include="View\CommentSpace.cs" />
+    <Compile Include="View\InvoiceDetailHeader.cs" />
     <Compile Include="View\InvoiceDocument.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -87,6 +86,11 @@
     <Compile Include="Controllers\IReceiptProcessor.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="View\InvoiceHeader.cs" />
+    <Compile Include="View\InvoiceNumber.cs" />
+    <Compile Include="View\MainWorkFrame.cs" />
+    <Compile Include="View\PaymentDetails.cs" />
+    <Compile Include="View\ProductSignature.cs" />
     <Compile Include="View\ReceiptDocument.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -94,9 +98,10 @@
       <DependentUpon>ReceiptDocument.cs</DependentUpon>
     </Compile>
     <Compile Include="Controllers\ReceiptProcessor.cs" />
-    <EmbeddedResource Include="View\InvoiceDocumentNew.resx">
-      <DependentUpon>InvoiceDocumentNew.cs</DependentUpon>
-    </EmbeddedResource>
+    <Compile Include="View\SignatureSpace.cs" />
+    <Compile Include="View\TotalAmountProcessor.cs" />
+    <Compile Include="View\VendorAndBuyerDetail.cs" />
+    <Compile Include="View\VendorAndBuyerHeader.cs" />
     <EmbeddedResource Include="View\InvoiceDocument.resx">
       <DependentUpon>InvoiceDocument.cs</DependentUpon>
     </EmbeddedResource>
