@@ -59,19 +59,9 @@ namespace Shopper2019.Documents.View
         private void InvoicePrintingProcessor(PrintPageEventArgs e)
         {
             decimal totalAmount = 0;
-            //podsumowanie w stawkach VAT
-            decimal _taxFreeSummary = 0;
-            decimal _tax5summary = 0;
-            decimal _tax8summary = 0;
-            decimal _tax23summary = 0;
-            decimal _netPrice5summary = 0;
-            decimal _netPrice8summary = 0;
-            decimal _netPrice23summary = 0;
-            decimal _netPriceFreeSummary = 0;
-            decimal _grossPrice5summary = 0;
-            decimal _grossPrice8summary = 0;
-            decimal _grossPrice23summary = 0;
-            decimal _grossPriceFreeSummary = 0;
+            TaxSummary taxSummary = new TaxSummary();
+
+            
 
             //----------------------------------------------------------------------
             string[] _cell = new string[9];
@@ -124,12 +114,12 @@ namespace Shopper2019.Documents.View
             InvoiceSummaryProcessor invoiceSummaryProcessor = new InvoiceSummaryProcessor();
             void InvoiceSummaryMethod(int? tax, decimal taxValue, decimal netPrice, decimal grossPrice)
             {
-                invoiceSummaryProcessor.CreateInvoiceSummaryProcessor(tax, taxValue, netPrice, grossPrice, ref _taxFreeSummary, ref _tax5summary, ref _tax8summary, ref _tax23summary, ref _netPrice5summary, ref _netPrice8summary, ref _netPrice23summary, ref _netPriceFreeSummary, ref _grossPrice5summary, ref _grossPrice8summary, ref _grossPrice23summary, ref _grossPriceFreeSummary);
+                invoiceSummaryProcessor.CreateInvoiceSummaryProcessor(tax, taxValue, netPrice, grossPrice, ref taxSummary);
             }
 
             void InvoiceSummary(int y, string _totalAmount)
             {
-                y = CreateInvoiceSummary(e, y, _totalAmount, _taxFreeSummary, _tax5summary, _tax8summary, _tax23summary, _netPrice5summary, _netPrice8summary, _netPrice23summary, _netPriceFreeSummary, _grossPrice5summary, _grossPrice8summary, _grossPrice23summary, _grossPriceFreeSummary);
+                y = CreateInvoiceSummary(e, y, _totalAmount, taxSummary);
             }
 
             //---------------------------------------------------------------------
@@ -190,7 +180,7 @@ namespace Shopper2019.Documents.View
             productSignature.CreateProductSignature(e);
         }
 
-        private int CreateInvoiceSummary(PrintPageEventArgs e, int y, string _totalAmount, decimal _taxFreeSummary, decimal _tax5summary, decimal _tax8summary, decimal _tax23summary, decimal _netPrice5summary, decimal _netPrice8summary, decimal _netPrice23summary, decimal _netPriceFreeSummary, decimal _grossPrice5summary, decimal _grossPrice8summary, decimal _grossPrice23summary, decimal _grossPriceFreeSummary)
+        private int CreateInvoiceSummary(PrintPageEventArgs e, int y, string _totalAmount, TaxSummary taxSummary)
         {
             //String inputText = text;
             Font drawFont = new System.Drawing.Font("Arial", 10, FontStyle.Regular);
@@ -211,9 +201,9 @@ namespace Shopper2019.Documents.View
             y = y + 20;
 
             string[] vatPercentLabel = { "5", "8", "23", "zw" };
-            string[] netLabel = { _netPrice5summary.ToString("F"), _netPrice8summary.ToString("F"), _netPrice23summary.ToString("F"), _netPriceFreeSummary.ToString("F") };
-            string[] grossLabel = { _grossPrice5summary.ToString("F"), _grossPrice8summary.ToString("F"), _grossPrice23summary.ToString("F"), _grossPriceFreeSummary.ToString("F") };
-            string[] taxLabel = { _tax5summary.ToString("F"), _tax8summary.ToString("F"), _tax23summary.ToString("F"), _taxFreeSummary.ToString("F") };
+            string[] netLabel = { taxSummary._netPrice5summary.ToString("F"), taxSummary._netPrice8summary.ToString("F"), taxSummary._netPrice23summary.ToString("F"), taxSummary._netPriceFreeSummary.ToString("F") };
+            string[] grossLabel = { taxSummary._grossPrice5summary.ToString("F"), taxSummary._grossPrice8summary.ToString("F"), taxSummary._grossPrice23summary.ToString("F"), taxSummary._grossPriceFreeSummary.ToString("F") };
+            string[] taxLabel = { taxSummary._tax5summary.ToString("F"), taxSummary._tax8summary.ToString("F"), taxSummary._tax23summary.ToString("F"), taxSummary._taxFreeSummary.ToString("F") };
             for (int i = 0; i <= 3; i++)
             {
                 //--tabela summary
