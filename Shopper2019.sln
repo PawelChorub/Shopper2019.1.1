@@ -9,11 +9,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shopper2019.UI", "Shopper20
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shopper2019.Logic", "Shopper2019.Logic\Shopper2019.Logic.csproj", "{B7DFEDB3-6CEB-4B73-8852-A5FE44130F13}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{B1023A95-D939-472B-BF13-A00CA7963DF0}"
-	ProjectSection(SolutionItems) = preProject
-		Notepad.txt = Notepad.txt
-	EndProjectSection
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shopper2019.Documents", "Shopper2019.Documents\Shopper2019.Documents.csproj", "{FEFA8B3E-BCB2-46FC-9F14-DDB8EED09259}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shopper2019.DigitRecognizer", "Shopper2019.DigitRecognizer\Shopper2019.DigitRecognizer.csproj", "{555C1223-84DF-47EC-A4A1-D74E4BD38803}"

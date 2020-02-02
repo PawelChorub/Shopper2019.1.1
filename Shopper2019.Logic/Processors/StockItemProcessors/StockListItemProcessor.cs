@@ -75,7 +75,7 @@ namespace Shopper2019.Logic.Processors
         {
             foreach (var item in listName)
             {
-                save.SaveItemToSqlStock(item);
+                save.SaveItemToStock(item);
             }
         }
 

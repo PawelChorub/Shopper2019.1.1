@@ -70,7 +70,7 @@ namespace Shopper2019.Logic.BusinessLogicFolder
             Int32.TryParse(vatTaxValue, out int tax);
             Int32.TryParse(grossPrice, out int gross);
 
-            saveToStockProcessor.SaveItemToSqlStock(stockItemProcessor.SetValuesToStockItem(code, name, q, unitOfMeasurement, net, tax, gross));
+            saveToStockProcessor.SaveItemToStock(stockItemProcessor.SetValuesToStockItem(code, name, q, unitOfMeasurement, net, tax, gross));
         }
         public void SaveStockItemsToSql()
         {
