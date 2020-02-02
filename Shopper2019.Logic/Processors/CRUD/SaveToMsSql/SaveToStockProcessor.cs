@@ -17,7 +17,7 @@ namespace Shopper2019.Logic.Processors
         private static SqlCommand sqlCommand;
         private string sqlQuery = "";
 
-        public void SaveItemToSqlStock(IStockItem stockItem)
+        public void SaveItemToStock(IStockItem stockItem)
         {
             bool itemExistInTable = false;
 

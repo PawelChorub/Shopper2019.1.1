@@ -6,7 +6,7 @@ namespace Shopper2019.Logic.Processors
     public interface ISaveToStockProcessor
     {
         //void SaveItemToSqlStock(string code, string name, string quantity, string netPrice, string vatTax, string grossPrice);
-        void SaveItemToSqlStock(IStockItem saveItem);
+        void SaveItemToStock(IStockItem saveItem);
        
 
     }
